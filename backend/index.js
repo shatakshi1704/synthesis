@@ -4,6 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 const { HoldingsModel } = require("./model/HoldingsModel");
 
@@ -12,10 +13,15 @@ const { OrdersModel } = require("./model/OrdersModel");
 
 const PORT = process.env.PORT || 3002;
 const uri = process.env.MONGO_URL;
-
+const authRoute = require("./routes/AuthRoute");
 const app = express();
+app.use(cookieParser());
 
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3000",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+}));
 app.use(bodyParser.json());
 
 // app.get("/addHoldings", async (req, res) => {
@@ -209,6 +215,8 @@ app.post("/newOrder", async (req, res) => {
 
   res.send("Order saved!");
 });
+
+app.use("/", authRoute);
 
 app.listen(PORT, () => {
   console.log("App started!");

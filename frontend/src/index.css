@@ -43,3 +43,63 @@ code {
   border-radius: 10px;
   border: none;
 }
+
+.form_container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border: 1px solid #dcc3aa; /* Light cream-ish border */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.form_container h2 {
+  text-align: center;
+  color: #810B38; /* Burgundy theme */
+  margin-bottom: 20px;
+}
+
+.form_container label {
+  font-size: 0.9rem;
+  color: #541A1A; /* Dark header text color */
+}
+
+.form_container input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #dcc3aa;
+  border-radius: 4px;
+}
+
+.form_container button {
+  width: 100%;
+  padding: 12px;
+  background-color: #810B38; /* Burgundy button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.form_container button:hover {
+  background-color: #541A1A; /* Darker shade on hover */
+}
+
+.form_container span {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  font-size: 0.85rem;
+  color: #541A1A;
+}
+
+.form_container a {
+  color: #810B38;
+  font-weight: bold;
+  text-decoration: none;
+}
