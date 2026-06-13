@@ -1,63 +1,35 @@
 import React from "react";
-
 import Hero from "./Hero";
 import LeftSection from "./LeftSection";
 import RightSection from "./RightSection";
-import Universe from "./Universe";
 
-import Navbar from "../Navbar";
-import Footer from "../Footer";
-
-function PricingPage() {
+function ProductsPage() {
   return (
     <>
       <Hero />
+      {/* Feature 1: The Core Terminal */}
       <LeftSection
-        imageURL="media/images/kite.png"
-        productName="Kite"
-        productDesription="Our ultra-fast flagship trading platform with streaming market data, advanced charts, an elegant UI, and more. Enjoy the Kite experience seamlessly on your Android and iOS devices."
-        tryDemo=""
-        learnMore=""
-        googlePlay=""
-        appStore=""
+        imageURL="media/images/kite.png" // Update this to your screenshot
+        productName="Synthesis Terminal"
+        productDesription="A single-interface platform for all your trading needs. Real-time market data, lightning-fast order execution, and integrated risk management."
+        tryDemo="#"
+        learnMore="#"
       />
+      
+      {/* Feature 2: Portfolio Analysis */}
       <RightSection
-        imageURL="media/images/console.png"
-        productName="Console"
-        productDesription="The central dashboard for your Zerodha account. Gain insights into your trades and investments with in-depth reports and visualisations."
-        learnMore=""
+        imageURL="media/images/console.png" // Update this to your dashboard screenshot
+        productName="Insights Dashboard"
+        productDesription="Deep-dive into your portfolio performance. Visualize your gains, track your risk exposure, and get clear, actionable insights into your financial habits."
+        learnMore="#"
       />
-      <LeftSection
-        imageURL="media/images/coin.png"
-        productName="Coin"
-        productDesription="Buy direct mutual funds online, commission-free, delivered directly to your Demat account. Enjoy the investment experience on your Android and iOS devices."
-        tryDemo=""
-        learnMore=""
-        googlePlay=""
-        appStore=""
-      />
-      <RightSection
-        imageURL="media/images/kiteconnect.png"
-        productName="Kite Connect API"
-        productDesription="Build powerful trading platforms and experiences with our super simple HTTP/JSON APIs. If you are a startup, build your investment app and showcase it to our clientbase."
-        learnMore=""
-      />
-      <LeftSection
-        imageURL="media/images/varsity.png"
-        productName="Varsity mobile"
-        productDesription="An easy to grasp, collection of stock market lessons with in-depth coverage and illustrations. Content is broken down into bite-size cards to help you learn on the go."
-        tryDemo=""
-        learnMore=""
-        googlePlay=""
-        appStore=""
-      />
-      <p className="text-center mt-5 mb-5">
-        Want to know more about our technology stack? Check out the Zerodha.tech
-        blog.
-      </p>
-      <Universe />
+
+      <div className="text-center mt-5 mb-5">
+        <h3>Built by engineers, for traders.</h3>
+        <p className="text-muted">We are constantly pushing updates to our core infrastructure.</p>
+      </div>
     </>
   );
 }
 
-export default PricingPage;
+export default ProductsPage;

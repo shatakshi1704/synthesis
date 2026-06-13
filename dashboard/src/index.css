@@ -52,11 +52,11 @@ code {
 }
 
 .btn-green {
-  background: #4caf50;
+  background: #810B38; /* Synthesis Burgundy */
 }
 
 .btn-blue {
-  background: #4184f3;
+  background: #541A1A; /* Synthesis Dark Accent */
 }
 
 .row {
@@ -80,7 +80,7 @@ code {
 
 .section-icon {
   transform: scale(0.8);
-  color: rgb(66, 56, 56);
+  color: #541A1A; 
   padding: 0;
   margin: 0;
   margin-right: 10px;
@@ -118,7 +118,7 @@ code {
 }
 
 .colored {
-  color: #4184f3;
+  color: #810B38; /* Synthesis Burgundy */
 }
 
 .table hr {
@@ -140,11 +140,11 @@ code {
 
 /* sudo selectors */
 .btn-blue:hover {
-  background: #74a7fa;
+  background: #3d1313; /* Darker Synthesis shade */
 }
 
 .btn-green:hover {
-  background: #7bdd7f;
+  background: #63082a; /* Darker Synthesis shade */
 }
 
 .title {
@@ -208,7 +208,7 @@ code {
 }
 
 .order-table td.loss {
-  color: rgb(250, 118, 78);
+  color: #810B38; /* Synthesis Burgundy */
 }
 
 .row {
@@ -228,6 +228,8 @@ code {
   font-weight: 300;
 }
 
+/* p1 */
+
 .col h5 span {
   font-weight: 300;
   font-size: 0.9rem;
@@ -241,7 +243,7 @@ code {
 }
 
 .row .col:last-child h5 {
-  color: rgb(72, 194, 55);
+  color: #810B38; /* Synthesis Burgundy */
 }
 
 /* sudo selector */
@@ -287,7 +289,7 @@ code {
 }
 
 .menu.selected {
-  color: rgb(245, 104, 52);
+  color: #810B38; /* Synthesis Burgundy */
 }
 
 hr {
@@ -309,13 +311,12 @@ hr {
   position: relative;
   font-size: 0.7rem;
   font-weight: 400;
-  color: rgb(221, 139, 221);
+  color: #810B38; /* Synthesis Burgundy */
   justify-content: center;
   align-items: center;
   border-radius: 100%;
-  text-align: center;
   display: flex;
-  background: rgb(252, 229, 252);
+  background: #F1E2D1; /* Synthesis Cream */
   margin-right: 8px;
 }
 
@@ -327,7 +328,7 @@ hr {
 /* sudo selectors */
 
 .menu:hover {
-  color: rgb(245, 104, 52);
+  color: #810B38; /* Synthesis Burgundy */
 }
 
 .profile:hover {
@@ -336,7 +337,7 @@ hr {
 
 .profile:hover .username {
   cursor: pointer;
-  color: rgb(223, 91, 43);
+  color: #541A1A; /* Synthesis Dark Accent */
 }
 
 .orders {
@@ -366,7 +367,7 @@ hr {
 
 .btn {
   text-decoration: none;
-  background: rgb(77, 77, 248);
+  background: #810B38; /* Synthesis Burgundy */
   padding: 10px 20px;
   border-radius: 2px;
   color: #fff;
@@ -374,7 +375,7 @@ hr {
 }
 
 .btn:hover {
-  background: rgb(110, 110, 253);
+  background: #541A1A; /* Synthesis Dark Accent */
 }
 
 .title {
@@ -402,14 +403,16 @@ hr {
   font-size: 0.8rem;
 }
 
+/*p2*/
+
 .order-table tr th:first-child,
 .order-table tr td:first-child {
   text-align: left;
 }
 
 .order-table tr td:first-child p {
-    background: rgb(255, 197, 197);
-    color: rgb(233, 120, 120);
+    background: #F1E2D1; /* Synthesis Cream */
+    color: #810B38; /* Synthesis Burgundy */
     width: 50%;
     text-align: center;
     border-radius: 2px;
@@ -424,7 +427,7 @@ hr {
   text-align: right;
   font-weight: 400;
   font-size: 0.9rem;
-  color: rgb(73, 73, 73);
+  color: #541A1A; /* Synthesis Dark Accent */
 }
 
 .align-left {
@@ -436,7 +439,7 @@ hr {
 }
 
 .order-table td.loss {
-  color: rgb(250, 118, 78);
+  color: #810B38; /* Synthesis Burgundy */
 }
 
 .row {
@@ -452,7 +455,7 @@ hr {
 
 .col h5 {
   font-size: 1.8rem;
-  color: rgb(71, 71, 71);
+  color: #541A1A; /* Synthesis Dark Accent */
   font-weight: 300;
 }
 
@@ -480,13 +483,13 @@ hr {
 .username h6 {
   font-size: 1.5rem;
   font-weight: 400;
-  color: rgb(83, 83, 83);
+  color: #541A1A; /* Synthesis Dark Accent */
   margin-bottom: 20px;
 }
 
 .divider {
   border: none;
-  background: #d1d1d1;
+  background: #F1E2D1; /* Synthesis Cream */
   height: 1px;
   margin: 20px 0;
   margin-bottom: 5%;
@@ -510,7 +513,7 @@ hr {
 
 .section-icon {
   transform: scale(0.8);
-  color: rgb(112, 112, 112);
+  color: #810B38; /* Synthesis Burgundy */
   padding: 0;
   margin: 0;
   margin-right: 10px;
@@ -526,7 +529,7 @@ hr {
 .data .first h3 {
   font-size: 2.5rem;
   font-weight: 300;
-  color: rgb(71, 71, 71);
+  color: #541A1A; /* Synthesis Dark Accent */
 }
 
 .data .first p {
@@ -544,7 +547,7 @@ hr {
 }
 
 .data hr {
-  border-left: 0.6px solid rgb(243, 242, 242);
+  border-left: 0.6px solid #F1E2D1; /* Synthesis Cream */
   height: 70px;
 }
 
@@ -559,7 +562,7 @@ hr {
   display: inline;
   margin-left: 5%;
   font-size: 0.9rem;
-  color: rgb(100, 100, 100);
+  color: #541A1A; /* Synthesis Dark Accent */
 }
 
 .section hr {
@@ -580,7 +583,7 @@ hr {
   flex-basis: 32%;
   height: 100%;
   padding: 10px 20px;
-  border-right: 1px solid rgb(224, 224, 224);
+  border-right: 1px solid #F1E2D1; /* Synthesis Cream */
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -611,14 +614,14 @@ hr {
   font-size: 0.8rem;
   font-weight: 500;
   text-transform: uppercase;
-  color: rgb(97, 97, 97);
+  color: #541A1A; /* Synthesis Dark Accent */
   white-space: nowrap;
 }
 
 .index-points {
   font-size: 0.8rem;
   font-weight: 500;
-  color: rgb(223, 73, 73);
+  color: #810B38; /* Synthesis Burgundy */
 }
 
 .percent {
@@ -641,6 +644,8 @@ hr {
   position: relative;
 }
 
+/*p3*/
+
 .search-container {
   display: flex;
   align-items: center;
@@ -655,8 +660,8 @@ hr {
   padding: 15px 20px;
   font-size: 0.9rem;
   font-weight: 400;
-  color: rgb(241, 241, 241);
-  border-bottom: 0.8px solid rgb(235, 234, 234);
+  color: #541A1A; /* Synthesis Dark Accent */
+  border-bottom: 0.8px solid #F1E2D1; /* Synthesis Cream */
 }
 
 .counts {
@@ -673,7 +678,7 @@ hr {
 }
 
 .list li {
-  border-bottom: 0.8px solid rgb(235, 234, 234);
+  border-bottom: 0.8px solid #F1E2D1; /* Synthesis Cream */
   padding: 12px 10px 12px 14px;
   position: relative;
 }
@@ -703,13 +708,13 @@ hr {
 }
 
 .item-info span:nth-child(2) {
-  color: rgb(223, 73, 73);
+  color: #810B38; /* Synthesis Burgundy */
   margin-right: 12px;
   flex: 2;
 }
 
 .item-info span:nth-child(3) {
-  color: rgb(223, 73, 73);
+  color: #810B38; /* Synthesis Burgundy */
   flex: 1;
 }
 
@@ -734,19 +739,19 @@ hr {
 }
 
 .buy {
-  background-color: #4184f3;
+  background-color: #810B38 !important; /* Synthesis Burgundy */
   color: #fff;
   font-weight: 400;
   font-size: 0.8rem;
-  border: 0.7px solid #4184f3;
+  border: 0.7px solid #810B38;
 }
 
 .sell {
-  background-color: #ff5722;
+  background-color: #541A1A !important; /* Synthesis Dark Accent */
   color: #fff;
   font-weight: 400;
   font-size: 0.8rem;
-  border: 0.7px solid #ff5722;
+  border: 0.7px solid #541A1A;
 }
 
 .action {
@@ -756,7 +761,7 @@ hr {
 
 .icon {
   transform: scale(0.7);
-  color: rgb(65, 65, 65);
+  color: #541A1A; /* Synthesis Dark Accent */
 }
 
 .watchlist-number {
@@ -770,7 +775,7 @@ hr {
   bottom: 1px;
   padding: 20px 20px 20px 0;
   left: 0;
-  border: 1px solid rgb(231, 231, 231);
+  border: 1px solid #F1E2D1; /* Synthesis Cream */
   z-index: 5;
   background: #fff;
 }
@@ -782,15 +787,15 @@ hr {
 .watchlist-number ul li {
   display: inline-block;
   padding: 10px 20px;
-  border-right: 1px solid rgb(231, 231, 231);
+  border-right: 1px solid #F1E2D1; /* Synthesis Cream */
 }
 
 .watchlist-number ul li:nth-child(1) {
-  color: rgb(223, 73, 73);
+  color: #810B38; /* Synthesis Burgundy */
 }
 
 .down {
-  color: rgb(223, 73, 73);
+  color: #810B38; /* Synthesis Burgundy */
 }
 
 .up {
@@ -799,7 +804,7 @@ hr {
 
 .settings {
   transform: scale(0.8);
-  color: rgb(105, 105, 105);
+  color: #541A1A; /* Synthesis Dark Accent */
 }
 
 /* sudo selectors */
@@ -809,7 +814,7 @@ hr {
 
 .list li:hover {
   cursor: move;
-  background-color: #f3f3f3;
+  background-color: #FDF9F5; /* Synthesis Cream Tint */
 }
 
 .list li:hover > .actions {
@@ -829,9 +834,9 @@ hr {
 }
 
 .watchlist-number ul li:hover {
-  color: rgb(245, 104, 52);
+  color: #810B38; /* Synthesis Burgundy */
   cursor: pointer;
-  background: rgb(243, 243, 243);
+  background: #FDF9F5; /* Synthesis Cream Tint */
 }
 
 .settings:hover {
@@ -842,4 +847,54 @@ hr {
   background-color: rgb(212, 212, 212);
 }
 
+/* Background Overlay */
+.buy-window-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Card Styling */
+.buy-window {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  width: 350px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.inputs { display: flex; gap: 20px; margin: 20px 0; }
+.input-group { display: flex; flex-direction: column; }
+.input-group input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+
+.buy-btn { background: #810B38; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
+.cancel-btn { background: #F1E2D1; border: none; padding: 10px 20px; border-radius: 4px; margin-left: 10px; cursor: pointer; }
+
+.actions button {
+    margin: 0 4px;
+    border-radius: 4px;
+    border: none;
+    transition: background 0.2s;
+}
+
+.actions .buy {
+    background-color: #810B38; /* Burgundy */
+    color: white;
+}
+
+.actions .sell {
+    background-color: #fa764e; /* Orange-Red */
+    color: white;
+}
+
+.actions button:hover {
+    filter: brightness(1.2);
+}
 

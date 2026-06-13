@@ -2,33 +2,13 @@ import React from "react";
 
 function Hero() {
   return (
-    <section className="container-fluid" id="supportHero">
-      <div className="p-5 " id="supportWrapper">
-        <h4>Support Portal</h4>
-        <a href="">Track Tickets</a>
-      </div>
-      <div className="row p-5 m-3">
-        <div className="col-6 p-3">
-          <h1 className="fs-3">
-            Search for an answer or browse help topics to create a ticket
-          </h1>
-          <input placeholder="Eg. how do I activate F&O" />
-          <br />
-          <a href="">Track account opening</a>
-          <a href="">Track segment activation</a>
-          <a href="">Intraday margins</a>
-          <a href="">Kite user manual</a>
-        </div>
-        <div className="col-6 p-3">
-          <h1 className="fs-3">Featured</h1>
-          <ol>
-            <li>
-              <a href="">Current Takeovers and Delisting - January 2024</a>
-            </li>
-            <li>
-              <a href="">Latest Intraday leverages - MIS & CO</a>
-            </li>
-          </ol>
+    <section className="container-fluid py-5" style={{ backgroundColor: "#541A1A", color: "#fff" }}>
+      <div className="container p-5">
+        <h1 className="display-5 fw-bold">Support Center</h1>
+        <p className="lead opacity-75">We are constantly improving. Let us know how we're doing.</p>
+        <div className="mt-4">
+          <a href="#" className="text-white me-4">Check System Status</a>
+          <a href="#" className="text-white">Read Documentation</a>
         </div>
       </div>
     </section>

@@ -14,10 +14,7 @@ function HomePage() {
       <Hero />
       <Awards />
       <Stats />
-      <Pricing />
-      <Education />
       <OpenAccount />
-      <Footer />
     </>
   );
 }

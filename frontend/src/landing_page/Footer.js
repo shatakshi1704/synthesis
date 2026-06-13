@@ -1,102 +1,67 @@
 import React from "react";
 
 function Footer() {
+  const linkStyle = { color: "#541A1A", textDecoration: "none", opacity: "0.7" };
+  const headerStyle = { color: "#541A1A", fontWeight: "700" };
+
   return (
-    <footer style={{ backgroundColor: "rgb(250, 250, 250)" }}>
-      <div className="container border-top mt-5">
-        <div className="row mt-5">
-          <div className="col">
-            <img src="media/images/logo.svg" style={{ width: "50%" }} />
-            <p>
-              &copy; 2010 - 2024, Not Zerodha Broking Ltd. All rights reserved.
+    <footer style={{ backgroundColor: "#F9F9F9", borderTop: "1px solid #DCC3AA" }}>
+      <div className="container py-5">
+        <div className="row mt-4">
+          
+          {/* Column 1: Brand */}
+          <div className="col-lg-3 mb-4">
+            <a className="navbar-brand d-flex align-items-center" href="/">
+          {/* Adjust the width as needed depending on your exact image resolution */}
+          <img
+            src="media/images/letterlogo.png"
+            alt="Synthesis Logo"
+            style={{ width: "200px", objectFit: "contain" }}
+          />
+        </a>
+            <p className="mt-3" style={{ opacity: "0.6", fontSize: "0.9rem" }}>
+              &copy; 2026 Synthesis Financial Technologies. <br />
+              All rights reserved.
             </p>
           </div>
-          <div className="col">
-            <p>Company</p>
-            <a href="">About</a>
-            <br />
-            <a href="">Products</a>
-            <br />
-            <a href="">Pricing</a>
-            <br />
-            <a href="">Referral programme</a>
-            <br />
-            <a href="">Careers</a>
-            <br />
-            <a href="">Zerodha.tech</a>
-            <br />
-            <a href="">Press & media</a>
-            <br />
-            <a href="">Zerodha cares (CSR)</a>
-            <br />
+
+          {/* Column 2: Company */}
+          <div className="col-lg-3 mb-4">
+            <p style={headerStyle}>Company</p>
+            <a href="/about" style={linkStyle}>About</a><br />
+            <a href="/careers" style={linkStyle}>Careers</a><br />
+            <a href="/press" style={linkStyle}>Press</a><br />
           </div>
-          <div className="col">
-            <p>Support</p>
-            <a href="">Contact</a>
-            <br />
-            <a href="">Support portal</a>
-            <br />
-            <a href="">Z-Connect blog</a>
-            <br />
-            <a href="">List of charges</a>
-            <br />
-            <a href="">Downloads & resources</a>
-            <br />
+
+          {/* Column 3: Support */}
+          <div className="col-lg-3 mb-4">
+            <p style={headerStyle}>Support</p>
+            <a href="/contact" style={linkStyle}>Contact</a><br />
+            <a href="/docs" style={linkStyle}>Documentation</a><br />
+            <a href="/status" style={linkStyle}>System Status</a><br />
           </div>
-          <div className="col">
-            <p>Account</p>
-            <a href="">Open an account</a>
-            <br />
-            <a href="">Fund transfer</a>
-            <br />
-            <a href="">60 day challenge</a>
-            <br />
+
+          {/* Column 4: Account */}
+          <div className="col-lg-3 mb-4">
+            <p style={headerStyle}>Account</p>
+            <a href="/signup" style={linkStyle}>Open an account</a><br />
+            <a href="/login" style={linkStyle}>Login</a><br />
           </div>
         </div>
-        <div className="mt-5 text-muted" style={{ fontSize: "14px" }}>
-          <p>
-            Zerodha Broking Ltd.: Member of NSE​ &​ BSE – SEBI Registration no.:
-            INZ000031633 CDSL: Depository services through Zerodha Securities
-            Pvt. Ltd. – SEBI Registration no.: IN-DP-100-2015 Commodity Trading
-            through Zerodha Commodities Pvt. Ltd. MCX: 46025 – SEBI Registration
-            no.: INZ000038238 Registered Address: Zerodha Broking Ltd.,
-            #153/154, 4th Cross, Dollars Colony, Opp. Clarence Public School,
-            J.P Nagar 4th Phase, Bengaluru - 560078, Karnataka, India. For any
-            complaints pertaining to securities broking please write to
-            complaints@zerodha.com, for DP related to dp@zerodha.com. Please
-            ensure you carefully read the Risk Disclosure Document as prescribed
-            by SEBI | ICF
-          </p>
 
+        {/* Legal Disclaimer */}
+        <div className="mt-5 pt-4 border-top" style={{ fontSize: "12px", color: "#541A1A", opacity: "0.5" }}>
           <p>
-            Procedure to file a complaint on SEBI SCORES: Register on SCORES
-            portal. Mandatory details for filing complaints on SCORES: Name,
-            PAN, Address, Mobile Number, E-mail ID. Benefits: Effective
-            Communication, Speedy redressal of the grievances
+            Synthesis Financial Technologies is a technology-first platform. Investments in the securities market are subject to market risks; 
+            read all related documents carefully before investing. 
           </p>
-
           <p>
-            Investments in securities market are subject to market risks; read
-            all the related documents carefully before investing.
+            Please ensure you carefully read the Risk Disclosure Document as prescribed by regulatory authorities. 
+            Synthesis does not provide investment advice or stock tips. 
           </p>
-
           <p>
-            "Prevent unauthorised transactions in your account. Update your
-            mobile numbers/email IDs with your stock brokers. Receive
-            information of your transactions directly from Exchange on your
-            mobile/email at the end of the day. Issued in the interest of
-            investors. KYC is one time exercise while dealing in securities
-            markets - once KYC is done through a SEBI registered intermediary
-            (broker, DP, Mutual Fund etc.), you need not undergo the same
-            process again when you approach another intermediary." Dear
-            Investor, if you are subscribing to an IPO, there is no need to
-            issue a cheque. Please write the Bank account number and sign the
-            IPO application form to authorize your bank to make payment in case
-            of allotment. In case of non allotment the funds will remain in your
-            bank account. As a business we don't give stock tips, and have not
-            authorized anyone to trade on behalf of others. If you find anyone
-            claiming to be part of Zerodha and offering such services, please
-            create a ticket here.
+            Registered Address: Synthesis Financial Technologies, [Insert Your Address], [Insert City], [Insert State]. 
+            For compliance and grievances, contact: compliance@synthesis.com
           </p>
         </div>
       </div>
