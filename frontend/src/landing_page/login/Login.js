@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom"; // useNavigate hata diya
 import axios from "axios";
 
 const Login = () => {
-  const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",
@@ -26,10 +25,8 @@ const Login = () => {
       
       const { success, message } = data;
       if (success) {
-        alert(message);
-        setTimeout(() => {
-          navigate("/"); // Redirect to your trading dashboard
-        }, 1000);
+        // 🔥 THE JUMP: Force the browser to leave port 3000 and go to 3001
+        window.location.href = "http://localhost:3001";
       } else {
         alert(message);
       }

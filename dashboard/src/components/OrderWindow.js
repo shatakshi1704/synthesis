@@ -1,5 +1,7 @@
 import React, { useContext, useState } from "react";
 import { GeneralContext } from "./GeneralContext";
+import axios from "axios";
+import "./OrderWindow.css"; // CSS file link
 
 const OrderWindow = () => {
   const { selectedStock, actionType, closeBuyWindow } = useContext(GeneralContext);
@@ -10,41 +12,47 @@ const OrderWindow = () => {
   const price = parseFloat(selectedStock.price) || 0;
   const total = (quantity * price).toFixed(2);
 
+  const handleOrder = async () => {
+    try {
+      await axios.post("http://localhost:3002/newOrder", {
+        name: selectedStock.name,
+        qty: quantity,
+        price: price,
+        mode: actionType
+      }, { withCredentials: true });
+      
+      alert(`${actionType} order successful!`);
+      closeBuyWindow();
+      window.location.reload(); 
+    } catch (err) {
+      alert("Order failed!");
+    }
+  };
+
   return (
-    <div className="buy-window-overlay">
-      <div className="buy-window">
-        <div className="header" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+    <div className="container">
+      <div className="regular-order">
+        <div className="header">
           <h3>{actionType} {selectedStock.name}</h3>
-          <button onClick={closeBuyWindow} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.2rem' }}>&times;</button>
         </div>
-
+        
         <div className="inputs">
-          <div className="input-group">
-            <label>Qty.</label>
-            <input 
-              type="number" 
-              value={quantity} 
-              onChange={(e) => setQuantity(parseInt(e.target.value) || 0)} 
-            />
-          </div>
-          <div className="input-group">
-            <label>Price</label>
+          <fieldset>
+            <legend>Qty.</legend>
+            <input type="number" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value) || 1)} />
+          </fieldset>
+          <fieldset>
+            <legend>Price</legend>
             <input type="text" value={price} readOnly />
-          </div>
+          </fieldset>
         </div>
 
-        <p className="margin-info">
-          {actionType === "BUY" ? "Margin required" : "Proceeds"}: ₹{total}
-        </p>
-
-        <div className="actions">
-          <button 
-            className={actionType === "BUY" ? "buy-btn" : "sell-btn"} 
-            onClick={closeBuyWindow}
-          >
-            {actionType}
-          </button>
-          <button className="cancel-btn" onClick={closeBuyWindow}>Cancel</button>
+        <div className="buttons">
+          <span>{actionType === "BUY" ? "Margin required" : "Proceeds"}: ₹{total}</span>
+          <div>
+            <button className="btn btn-buy" onClick={handleOrder}>{actionType}</button>
+            <button className="btn btn-cancel" onClick={closeBuyWindow}>Cancel</button>
+          </div>
         </div>
       </div>
     </div>

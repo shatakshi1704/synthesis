@@ -1,0 +1,45 @@
+/* OrderWindow.css */
+.container {
+  background-color: #ffffff;
+  border: 1px solid #F1E2D1;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 4px 12px rgba(84, 26, 26, 0.15);
+  border-radius: 8px;
+  /* Fixed positioning to center modal on screen */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.regular-order { display: flex; flex-direction: column; }
+
+.inputs { display: flex; gap: 10px; }
+
+fieldset {
+  border: 1px solid #F1E2D1;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  padding: 5px 10px;
+  flex: 1;
+}
+
+legend { color: #810B38; font-weight: 500; font-size: 0.8rem; padding: 0 5px; }
+
+input { border: none; outline: none; width: 100%; font-size: 1rem; color: #541A1A; background: transparent; }
+
+.buttons { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+
+.buttons span { font-size: 0.8rem; color: #541A1A; }
+
+.buttons div { display: flex; gap: 10px; }
+
+.btn { padding: 10px 20px; border-radius: 4px; cursor: pointer; border: none; font-weight: 500; }
+
+.btn-buy { background-color: #810B38; color: #ffffff; flex: 1; }
+.btn-buy:hover { background-color: #63082a; }
+
+.btn-cancel { background-color: #F1E2D1; color: #541A1A; flex: 1; }
+.btn-cancel:hover { background-color: #dcc3aa; }

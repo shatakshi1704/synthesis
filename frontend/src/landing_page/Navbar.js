@@ -37,10 +37,12 @@ function Navbar() {
             {cookies.token ? (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link text-dark" to="http://localhost:3001" style={{ fontWeight: "600" }}>Dashboard</Link>
+                  {/* 🔥 FIX: <Link> ki jagah <a> tag for cross-port jumping */}
+                  <a className="nav-link text-dark" href="http://localhost:3001" style={{ fontWeight: "600" }}>Dashboard</a>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link text-dark" to="/portfolio" style={{ fontWeight: "600" }}>Portfolio</Link>
+                  {/* 🔥 FIX: <Link> ki jagah <a> tag for cross-port jumping */}
+                  <a className="nav-link text-dark" href="http://localhost:3001/portfolio" style={{ fontWeight: "600" }}>Portfolio</a>
                 </li>
                 <li className="nav-item ms-3">
                   <button 
