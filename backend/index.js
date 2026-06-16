@@ -109,6 +109,7 @@ app.get("/allWatchlist", async (req, res) => {
 
 app.post("/newOrder", verifyUser, async (req, res) => {
   try {
+    // 1. Order save karo (Jo tum pehle kar rahi ho)
     const newOrder = new OrdersModel({
       user: req.userId,
       name: req.body.name,
@@ -118,8 +119,34 @@ app.post("/newOrder", verifyUser, async (req, res) => {
       date: new Date().toLocaleDateString(),
     });
     await newOrder.save();
-    res.status(201).send("Order saved!");
-  } catch (error) { res.status(500).json({ message: "Error saving order" }); }
+
+    // 2. 🔥 Holdings update karo
+    if (req.body.mode === "BUY") {
+      let holding = await HoldingsModel.findOne({ user: req.userId, name: req.body.name });
+      
+      if (holding) {
+        // Agar pehle se hai, toh qty badhao
+        holding.qty += parseInt(req.body.qty);
+        holding.price = req.body.price; // Update latest price
+        await holding.save();
+      } else {
+        // Agar naya stock hai, toh create karo
+        const newHolding = new HoldingsModel({
+          user: req.userId,
+          name: req.body.name,
+          qty: parseInt(req.body.qty),
+          avg: req.body.price,
+          price: req.body.price,
+        });
+        await newHolding.save();
+      }
+    }
+
+    res.status(201).send("Order saved and Holdings updated!");
+  } catch (error) { 
+    console.error(error);
+    res.status(500).json({ message: "Error saving order" }); 
+  }
 });
 
 app.use("/", authRoute);

@@ -6,6 +6,7 @@
     "@mui/icons-material": "^9.1.0",
     "@mui/material": "^9.1.0",
     "axios": "^1.17.0",
-    "bootstrap": "^5.3.8"
+    "bootstrap": "^5.3.8",
+    "recharts": "^3.8.1"
   }
 }
