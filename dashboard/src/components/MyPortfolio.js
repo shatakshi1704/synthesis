@@ -17,10 +17,6 @@ const MyPortfolio = () => {
           axios.get("http://localhost:3002/allOrders", { withCredentials: true })
         ]);
         
-        // Console log for debugging
-        console.log("Profile Data from API:", profileRes.data);
-        
-        // Correct dynamic name assignment
         if (profileRes.data && profileRes.data.username) {
           setUsername(profileRes.data.username);
         }
@@ -35,6 +31,26 @@ const MyPortfolio = () => {
     };
     fetchData();
   }, []);
+
+  const metrics = React.useMemo(() => {
+    if (!data.holdings || data.holdings.length === 0) return { totalInvested: 0, totalPL: 0, netWorth: 0, todaysReturns: 0 };
+
+    const totalInvested = data.holdings.reduce((acc, h) => acc + (parseFloat(h.avg || 0) * parseFloat(h.qty || 0)), 0);
+    const totalCurrentValue = data.holdings.reduce((acc, h) => acc + (parseFloat(h.price || 0) * parseFloat(h.qty || 0)), 0);
+    
+    // Today's returns calculation based on orders placed today
+    const today = new Date().toLocaleDateString();
+    const todaysReturns = data.orders
+      .filter(o => o.date === today)
+      .reduce((acc, o) => acc + (parseFloat(o.price || 0) * parseFloat(o.qty || 0)), 0);
+
+    return { 
+      totalInvested, 
+      totalPL: totalCurrentValue - totalInvested, 
+      netWorth: totalCurrentValue,
+      todaysReturns 
+    };
+  }, [data.holdings, data.orders]);
 
   return (
     <div className="custom-portfolio-container">
@@ -54,10 +70,24 @@ const MyPortfolio = () => {
 
       {/* METRICS */}
       <div className="floating-metrics-row">
-        <div className="floating-card"><span className="card-label">Total Net Worth</span><h3>₹12,85,450.00</h3></div>
-        <div className="floating-card"><span className="card-label">Invested Capital</span><h3>₹10,50,000.00</h3></div>
-        <div className="floating-card highlight-card"><span className="card-label">All-Time P&L</span><h3 className="profit">₹2,35,450.00</h3></div>
-        <div className="floating-card highlight-card"><span className="card-label">Today's Returns</span><h3 className="profit">₹18,750.00</h3></div>
+        <div className="floating-card">
+          <span className="card-label">Total Net Worth</span>
+          <h3>₹{metrics.netWorth.toLocaleString()}</h3>
+        </div>
+        <div className="floating-card">
+          <span className="card-label">Invested Capital</span>
+          <h3>₹{metrics.totalInvested.toLocaleString()}</h3>
+        </div>
+        <div className="floating-card highlight-card">
+          <span className="card-label">All-Time P&L</span>
+          <h3 className={metrics.totalPL >= 0 ? "profit" : "loss"}>
+            ₹{metrics.totalPL.toLocaleString()}
+          </h3>
+        </div>
+        <div className="floating-card highlight-card">
+          <span className="card-label">Today's Returns</span>
+          <h3 className="profit">₹{metrics.todaysReturns.toLocaleString()}</h3>
+        </div>
       </div>
 
       {/* DASHBOARD LAYOUT */}

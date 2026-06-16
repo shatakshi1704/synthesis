@@ -1,90 +1,102 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
 import GeneralContext from "./GeneralContext";
-import { Tooltip, Grow } from "@mui/material";
-import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
-import { watchlist } from "../data/data";
+import { Refresh, KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import { DoughnutChart } from "./DoughnoutChart";
 
 const WatchList = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const filteredWatchlist = watchlist.filter((stock) =>
-    stock.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const [allStocks, setAllStocks] = useState([]);
+  
+  // Context functions directly yahan access karo
+  const { openBuyWindow, openSellWindow } = useContext(GeneralContext);
 
-  const labels = filteredWatchlist.map((stock) => stock.name);
+  const fetchData = async () => {
+    try {
+      const res = await axios.get("http://localhost:3002/allWatchlist", { withCredentials: true });
+      setAllStocks(res.data);
+    } catch (err) { console.error(err); }
+  };
+
+  useEffect(() => { fetchData(); }, []);
+
+  const handleRefresh = async () => {
+    try {
+      await axios.get("http://localhost:3002/refreshWatchlist", { withCredentials: true });
+      fetchData();
+    } catch (err) { console.error(err); }
+  };
+
+  const filtered = allStocks.filter((s) => s.name?.toLowerCase().includes(searchQuery.toLowerCase()));
+
   const data = {
-    labels,
+    labels: filtered.map((s) => s.name),
     datasets: [{
-      label: "Price",
-      data: filteredWatchlist.map((stock) => stock.price),
-      backgroundColor: [
-        "rgba(129, 11, 56, 0.7)",
-        "rgba(84, 26, 26, 0.7)",
-        "rgba(241, 226, 209, 0.7)",
-      ],
-      borderColor: ["#810B38", "#541A1A", "#DCC3AA"],
-      borderWidth: 1,
+      data: filtered.map((s) => s.price),
+      backgroundColor: ["#810B38", "#541A1A", "#DCC3AA"],
+      borderWidth: 0,
     }],
   };
 
   return (
-    <div className="watchlist-container">
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Search eg:infy, bse, nifty fut weekly, gold mcx"
-          className="search"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <span className="counts"> {filteredWatchlist.length} / 50</span>
+    <div style={{ width: "100%", height: "100vh", overflowY: "auto", padding: "20px", boxSizing: "border-box" }}>
+      
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+        <h4 style={{ margin: 0, color: "#333" }}>Market Watch</h4>
+        <Refresh onClick={handleRefresh} style={{ cursor: "pointer", color: "#666" }} />
       </div>
 
-      <ul className="list">
-        {filteredWatchlist.map((stock, index) => (
-          <WatchListItem stock={stock} key={index} />
+      <input 
+        placeholder="Search stocks..." 
+        value={searchQuery} 
+        onChange={(e) => setSearchQuery(e.target.value)} 
+        style={{ width: "100%", padding: "10px", marginBottom: "15px", borderRadius: "4px", border: "1px solid #ccc", boxSizing: "border-box" }} 
+      />
+
+      <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+        {filtered.map((stock, i) => (
+          <WatchListItem 
+            key={i} 
+            stock={stock} 
+            onBuy={() => openBuyWindow(stock)} 
+            onSell={() => openSellWindow(stock)} 
+          />
         ))}
       </ul>
 
-      {/* Yeh chart ab list ke niche fixed rahega */}
-      <div className="doughnut-chart-container" style={{ marginTop: "20px" }}>
+      <div style={{ marginTop: "30px" }}>
         <DoughnutChart data={data} />
       </div>
     </div>
   );
 };
 
-const WatchListItem = ({ stock }) => {
-  const [showActions, setShowActions] = useState(false);
-  const stockColor = stock.isDown ? { color: "rgb(250, 118, 78)" } : { color: "rgb(72, 194, 55)" };
+const WatchListItem = ({ stock, onBuy, onSell }) => {
+  const [show, setShow] = useState(false);
+  const color = stock.isDown ? "#d32f2f" : "#388e3c";
 
   return (
-    <li onMouseEnter={() => setShowActions(true)} onMouseLeave={() => setShowActions(false)}>
-      <div className="item">
-        <p style={stockColor}>{stock.name}</p>
-        <div className="item-info">
-          <span style={stockColor}>{stock.percent}</span>
-          {stock.isDown ? <KeyboardArrowDown style={stockColor} /> : <KeyboardArrowUp style={stockColor} />}
-          <span style={stockColor}>{stock.price}</span>
+    <li 
+      onMouseEnter={() => setShow(true)} 
+      onMouseLeave={() => setShow(false)} 
+      style={{ padding: "12px 0", borderBottom: "1px solid #eee", position: "relative" }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <span style={{ fontWeight: "600", fontSize: "14px", color: color }}>{stock.name}</span>
+        <div style={{ display: "flex", gap: "8px", alignItems: "center", fontSize: "13px", color: color }}>
+          <span style={{ fontWeight: "500" }}>{stock.percent}</span>
+          {stock.isDown ? <KeyboardArrowDown style={{ fontSize: "16px" }}/> : <KeyboardArrowUp style={{ fontSize: "16px" }}/>}
+          <span style={{ color: "#333", fontWeight: "600" }}>₹{stock.price}</span>
         </div>
       </div>
-      {showActions && <WatchListActions stock={stock} />}
+      
+      {show && (
+        <div style={{ marginTop: "8px", display: "flex", gap: "8px" }}>
+          <button onClick={onBuy} style={{ background: "#e3f2fd", color: "#1976d2", border: "none", padding: "4px 10px", borderRadius: "4px", cursor: "pointer", fontSize: "11px" }}>BUY</button>
+          <button onClick={onSell} style={{ background: "#ffebee", color: "#d32f2f", border: "none", padding: "4px 10px", borderRadius: "4px", cursor: "pointer", fontSize: "11px" }}>SELL</button>
+        </div>
+      )}
     </li>
-  );
-};
-
-const WatchListActions = ({ stock }) => {
-  const { openBuyWindow, openSellWindow } = useContext(GeneralContext);
-  
-  return (
-    <span className="actions">
-      <Tooltip title="Buy (B)" arrow TransitionComponent={Grow}>
-        <button className="buy" onClick={() => openBuyWindow(stock)} style={{ padding: "8px 16px", fontSize: "0.9rem", fontWeight: "600", cursor: "pointer" }}>Buy</button>
-      </Tooltip>
-      <Tooltip title="Sell (S)" arrow TransitionComponent={Grow}>
-        <button className="sell" onClick={() => openSellWindow(stock)} style={{ padding: "8px 16px", fontSize: "0.9rem", fontWeight: "600", cursor: "pointer" }}>Sell</button>
-      </Tooltip>
-    </span>
   );
 };
 

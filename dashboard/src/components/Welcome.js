@@ -7,12 +7,16 @@ const Welcome = () => {
     "Short-term market volatility is a standard and expected part of long-term investing.",
     "Indices like Nifty 50 or Sensex act as benchmarks for the overall market health.",
     "Diversification across sectors is the most effective way to mitigate individual stock risk.",
-    "Stock exchanges operate during fixed daily hours for executing buy and sell orders."
+    "Stock exchanges operate during fixed daily hours for executing buy and sell orders.",
+    "Dividends are portions of a company's profit distributed to its shareholders.",
+  "A 'Bull market' refers to a period where asset prices are generally rising.",
+  "Market capitalization is calculated by multiplying the share price by the total number of outstanding shares.",
+  "Blue-chip stocks represent well-established, financially sound companies with a history of reliable performance."
   ];
 
   return (
     <div style={{ padding: "40px", color: "#541A1A" }}>
-      <h2 style={{ color: "#810B38", marginBottom: "25px" }}>Welcome to Synthesis</h2>
+      <h2 style={{ color: "#810B38", marginBottom: "25px" }}>Welcome. Let's read some facts:</h2>
       
       {/* 2 columns per row layout */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", marginBottom: "40px" }}>
