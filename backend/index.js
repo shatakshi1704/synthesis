@@ -12,21 +12,36 @@ const { faker } = require('@faker-js/faker');
 const { HoldingsModel } = require("./model/HoldingsModel");
 const { PositionsModel } = require("./model/PositionsModel");
 const { OrdersModel } = require("./model/OrdersModel");
-const UserModel = require("./model/UserModel"); // 🔥 IMPORT FIXED: No curly braces
-const { WatchlistModel } = require("./model/WatchlistModel"); // Yeh line check kar lena
-
-const PORT = process.env.PORT || 3002;
-const uri = process.env.MONGO_URL;
-const authRoute = require("./routes/AuthRoute");
+const UserModel = require("./model/UserModel");
+const { WatchlistModel } = require("./model/WatchlistModel");
 
 const app = express();
 
+// 1. DYNAMIC PORT FOR RENDER
+const PORT = process.env.PORT || 3002;
+const uri = process.env.MONGO_URL;
+
+// 2. PRODUCTION CORS SETUP
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:3001",
+  "https://your-frontend-url.vercel.app", // Yahan apna live URL dalna baad mein
+  "https://your-dashboard-url.vercel.app"  // Yahan apna live URL dalna baad mein
+];
+
 app.use(cookieParser());
 app.use(cors({
-  origin: ["http://localhost:3000", "http://localhost:3001"],
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));
+
 app.use(bodyParser.json());
 
 // 🛡️ SECURITY LAYER
@@ -46,9 +61,7 @@ app.get("/user/profile", verifyUser, async (req, res) => {
   try {
     const user = await UserModel.findById(req.userId);
     if (!user) return res.status(404).json({ message: "User not found" });
-
-    const nameToReturn = user.username || user.name || "USER";
-    res.json({ username: nameToReturn });
+    res.json({ username: user.username || user.name || "USER" });
   } catch (err) {
     res.status(500).json({ message: "Error fetching profile" });
   }
@@ -66,50 +79,27 @@ app.get("/allOrders", verifyUser, async (req, res) => {
   try {
     const allOrders = await OrdersModel.find({ user: req.userId });
     res.json(allOrders);
-  } catch (error) { 
-    console.error("Orders Fetch Error:", error);
-    res.status(500).json({ message: "Server Error" }); 
-  }
+  } catch (error) { res.status(500).json({ message: "Server Error" }); }
 });
 
-// 🔒 POSITIONS ROUTE
 app.get("/allPositions", verifyUser, async (req, res) => {
   try {
     const allPositions = await PositionsModel.find({ user: req.userId });
     res.json(allPositions);
-  } catch (error) { 
-    console.error("Positions Fetch Error:", error);
-    res.status(500).json({ message: "Server Error" }); 
-  }
-});
-
-app.get("/refreshWatchlist", async (req, res) => {
-  try {
-    await WatchlistModel.deleteMany({});
-    const newWatchlist = Array.from({ length: 10 }, () => ({
-      name: faker.string.alpha({ length: 4, casing: 'upper' }),
-      price: parseFloat(faker.finance.amount({ min: 100, max: 5000 })),
-      percent: (Math.random() * 4 - 2).toFixed(2) + "%",
-      isDown: Math.random() < 0.5
-    }));
-    await WatchlistModel.insertMany(newWatchlist);
-    res.json(newWatchlist);
   } catch (error) { res.status(500).json({ message: "Server Error" }); }
 });
 
+// 📈 WATCHLIST
 app.get("/allWatchlist", async (req, res) => {
   try {
     const allStocks = await WatchlistModel.find({});
     res.json(allStocks);
-  } catch (error) { 
-    console.error("Watchlist Fetch Error:", error);
-    res.status(500).json({ message: "Server Error" }); 
-  }
+  } catch (error) { res.status(500).json({ message: "Server Error" }); }
 });
 
+// 💸 NEW ORDER
 app.post("/newOrder", verifyUser, async (req, res) => {
   try {
-    // 1. Order save karo (Jo tum pehle kar rahi ho)
     const newOrder = new OrdersModel({
       user: req.userId,
       name: req.body.name,
@@ -120,17 +110,13 @@ app.post("/newOrder", verifyUser, async (req, res) => {
     });
     await newOrder.save();
 
-    // 2. 🔥 Holdings update karo
     if (req.body.mode === "BUY") {
       let holding = await HoldingsModel.findOne({ user: req.userId, name: req.body.name });
-      
       if (holding) {
-        // Agar pehle se hai, toh qty badhao
         holding.qty += parseInt(req.body.qty);
-        holding.price = req.body.price; // Update latest price
+        holding.price = req.body.price;
         await holding.save();
       } else {
-        // Agar naya stock hai, toh create karo
         const newHolding = new HoldingsModel({
           user: req.userId,
           name: req.body.name,
@@ -141,15 +127,11 @@ app.post("/newOrder", verifyUser, async (req, res) => {
         await newHolding.save();
       }
     }
-
-    res.status(201).send("Order saved and Holdings updated!");
-  } catch (error) { 
-    console.error(error);
-    res.status(500).json({ message: "Error saving order" }); 
-  }
+    res.status(201).send("Order saved!");
+  } catch (error) { res.status(500).json({ message: "Error saving order" }); }
 });
 
-app.use("/", authRoute);
+app.use("/", require("./routes/AuthRoute"));
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}!`);
