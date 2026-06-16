@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import API from "../api"; // 🔥 Import the API instance
 
 const Positions = () => {
   const [positions, setPositions] = useState([]);
 
   useEffect(() => {
-    // API se data fetch karo
-    axios.get("http://localhost:3002/allPositions", { withCredentials: true })
+    // 🔥 Ab axios ki jagah API.get use karenge
+    API.get("/allPositions")
       .then((res) => {
         setPositions(res.data);
       })

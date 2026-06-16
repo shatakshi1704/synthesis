@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // useNavigate hata diya
-import axios from "axios";
+import { Link } from "react-router-dom";
+import API from "../api"; // 🔥 Import the production-ready API instance
 
 const Login = () => {
   const [inputValue, setInputValue] = useState({
@@ -15,23 +15,20 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login button clicked!");
     try {
-      const { data } = await axios.post(
-        "http://localhost:3002/login",
-        { ...inputValue },
-        { withCredentials: true }
-      );
+      // 🔥 Using API instance
+      const { data } = await API.post("/login", { ...inputValue });
       
       const { success, message } = data;
       if (success) {
-        // 🔥 THE JUMP: Force the browser to leave port 3000 and go to 3001
-        window.location.href = "http://localhost:3001";
+        // 🔥 Redirect to your live Dashboard Vercel URL
+        window.location.href = "https://your-dashboard-url.vercel.app";
       } else {
         alert(message);
       }
     } catch (error) {
-      console.error(error);
+      console.error("Login Error:", error);
+      alert("Login failed! Please check your credentials.");
     }
   };
 

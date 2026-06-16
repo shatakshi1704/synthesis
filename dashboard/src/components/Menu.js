@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import API from "../api"; // 🔥 Import API instance from api.js
 
 const Menu = () => {
   const [username, setUsername] = useState("USER");
@@ -8,14 +8,14 @@ const Menu = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get("http://localhost:3002/user/profile", { withCredentials: true });
+        // 🔥 Use API instance instead of axios
+        const res = await API.get("/user/profile"); 
         if (res.data.username) setUsername(res.data.username.toUpperCase());
-      } catch (err) { console.error(err); }
+      } catch (err) { console.error("Profile fetch error:", err); }
     };
     fetchUser();
   }, []);
 
-  // Inline Style Objects
   const styles = {
     navbar: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "15px 50px", background: "#ffffff", borderBottom: "1px solid #f0f0f0" },
     rightSection: { display: "flex", alignItems: "center", gap: "30px" },
@@ -27,10 +27,11 @@ const Menu = () => {
 
   return (
     <div style={styles.navbar}>
-
+      <h3 style={styles.brand}>SYNTHESIS</h3>
 
       <div style={styles.rightSection}>
-        <a href="http://localhost:3000/" style={styles.link}>Home</a>
+        {/* 🔥 Use your live Landing Page URL instead of localhost */}
+        <a href="https://your-frontend-project.vercel.app/" style={styles.link}>Home</a>
         <Link to="/portfolio" style={styles.link}>Portfolio</Link>
         
         <div style={styles.profile}>

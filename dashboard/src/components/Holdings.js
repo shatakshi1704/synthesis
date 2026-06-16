@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import API from "../api"; // 🔥 API instance import kiya
 import { VerticalGraph } from "./VerticalGraph";
 
 const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);
 
   useEffect(() => {
-    // 🔥 FIX 1: Added withCredentials so the backend knows WHO is asking
-    axios.get("http://localhost:3002/allHoldings", { withCredentials: true })
+    // 🔥 FIX: Ab axios.get ki jagah API.get use kar rahe hain
+    // Isse baseURL aur withCredentials automatically mil jayenge
+    API.get("/allHoldings")
       .then((res) => {
         setAllHoldings(res.data);
       })
@@ -29,7 +30,6 @@ const Holdings = () => {
     ],
   };
 
-  // 🔥 FIX 2: Dynamic Calculations for the Hero Section
   let totalInvestment = 0;
   let currentValue = 0;
 
@@ -86,7 +86,6 @@ const Holdings = () => {
         </table>
       </div>
 
-      {/* 🔥 The Live Hero Section */}
       <div className="row">
         <div className="col">
           <h5>

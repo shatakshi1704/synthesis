@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
+import API from "../api"; // 🔥 Import production-ready API instance
 import GeneralContext from "./GeneralContext";
 import { Refresh, KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import { DoughnutChart } from "./DoughnoutChart";
@@ -8,23 +8,24 @@ const WatchList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [allStocks, setAllStocks] = useState([]);
   
-  // Context functions directly yahan access karo
   const { openBuyWindow, openSellWindow } = useContext(GeneralContext);
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("http://localhost:3002/allWatchlist", { withCredentials: true });
+      // 🔥 Using API instance
+      const res = await API.get("/allWatchlist");
       setAllStocks(res.data);
-    } catch (err) { console.error(err); }
+    } catch (err) { console.error("Watchlist Fetch Error:", err); }
   };
 
   useEffect(() => { fetchData(); }, []);
 
   const handleRefresh = async () => {
     try {
-      await axios.get("http://localhost:3002/refreshWatchlist", { withCredentials: true });
+      // 🔥 Using API instance for refresh
+      await API.get("/refreshWatchlist");
       fetchData();
-    } catch (err) { console.error(err); }
+    } catch (err) { console.error("Refresh Error:", err); }
   };
 
   const filtered = allStocks.filter((s) => s.name?.toLowerCase().includes(searchQuery.toLowerCase()));

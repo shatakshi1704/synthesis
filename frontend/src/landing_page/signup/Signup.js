@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import API from "../api"; // 🔥 Import the centralized API instance
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -20,17 +20,15 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(
-        "http://localhost:3002/signup", 
-        { ...inputValue },
-        { withCredentials: true }
-      );
+      // 🔥 Using API instance instead of axios
+      // BaseURL aur withCredentials yahan se automatic apply honge
+      const { data } = await API.post("/signup", { ...inputValue });
 
       const { success, message } = data;
       if (success) {
         alert(message);
         setTimeout(() => {
-          navigate("/login"); // Redirect to login page after successful signup
+          navigate("/login");
         }, 1000);
       } else {
         alert(message);

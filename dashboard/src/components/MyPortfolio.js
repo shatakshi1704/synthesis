@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import API from "../api"; // 🔥 Import the API instance
 import { PieChart, Pie, Cell, LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import "./MyPortfolio.css";
 import html2canvas from 'html2canvas';
@@ -14,10 +14,11 @@ const MyPortfolio = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // 🔥 Using API instance for production-ready calls
         const [profileRes, hRes, oRes] = await Promise.all([
-          axios.get("http://localhost:3002/user/profile", { withCredentials: true }),
-          axios.get("http://localhost:3002/allHoldings", { withCredentials: true }),
-          axios.get("http://localhost:3002/allOrders", { withCredentials: true })
+          API.get("/user/profile"),
+          API.get("/allHoldings"),
+          API.get("/allOrders")
         ]);
         if (profileRes.data?.username) setUsername(profileRes.data.username);
         setData({ holdings: hRes.data || [], orders: oRes.data || [] });
@@ -44,23 +45,16 @@ const MyPortfolio = () => {
   }, [data.holdings, data.orders]);
 
   const handlePrint = async () => {
-  // Graph containers ko select karo
-  const charts = document.querySelectorAll('.chart-box');
-  
-  // Har chart ko image mein convert karke temporary show karo
-  for (let chart of charts) {
-    const canvas = await html2canvas(chart);
-    chart.innerHTML = `<img src="${canvas.toDataURL()}" style="width:100%" />`;
-  }
-  
-  // Print trigger karo
-  window.print();
-  
-  // Page refresh karo taaki original graphs wapas aa jayein
-  window.location.reload();
-};
+    const charts = document.querySelectorAll('.chart-box');
+    for (let chart of charts) {
+      const canvas = await html2canvas(chart);
+      chart.innerHTML = `<img src="${canvas.toDataURL()}" style="width:100%" />`;
+    }
+    window.print();
+    window.location.reload();
+  };
 
- return (
+  return (
     <div className="custom-portfolio-container">
       <div className="portfolio-header">
         <div className="title-section">
@@ -68,8 +62,9 @@ const MyPortfolio = () => {
           <span className="subtitle">Real-Time Wealth Dashboard</span>
         </div>
         <div className="header-actions no-print">
-          <button className="download-btn" onClick={() => window.location.href = 'http://localhost:3000/'}>HOME</button>
-          <button className="download-btn" onClick={() => navigate("/dashboard")}>DASHBOARD</button>
+          {/* 🔥 Update these URLs with your actual Vercel project links */}
+          <button className="download-btn" onClick={() => window.location.href = 'https://your-frontend-project.vercel.app/'}>HOME</button>
+          <button className="download-btn" onClick={() => navigate("/portfolio")}>PORTFOLIO</button>
           <button className="download-btn" onClick={handlePrint}>EXPORT REPORT</button>
           <div className="live-indicator"><div className="live-dot"></div> MARKET OPEN</div>
         </div>
@@ -87,7 +82,6 @@ const MyPortfolio = () => {
           <div className="clean-panel">
             <div className="panel-header"><h4>Performance Analytics</h4><span className="time-filter">1Y Trend</span></div>
             <div className="charts-grid">
-              {/* Asset Allocation Pie Chart with container styling */}
               <div className="chart-box" style={{ width: "100%", height: "150px" }}>
                 <span className="chart-title">Asset Allocation</span>
                 <ResponsiveContainer width="100%" height="100%">
@@ -99,8 +93,6 @@ const MyPortfolio = () => {
                   </PieChart>
                 </ResponsiveContainer>
               </div>
-              
-              {/* Portfolio Growth Line Chart with container styling */}
               <div className="chart-box" style={{ width: "100%", height: "150px" }}>
                 <span className="chart-title">Portfolio Growth</span>
                 <ResponsiveContainer width="100%" height="100%">

@@ -1,5 +1,5 @@
-// index.js
 import React from "react";
+import ProtectedRoute from "./ProtectedRoute"; // 🔥 Import kiya
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import "./index.css";
@@ -12,8 +12,17 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/dashboard/*" element={<Home />} />
-        {/* Route is now static, relying on session/cookies */}
-        <Route path="/portfolio" element={<MyPortfolio />} />
+        
+        {/* 🔥 Protected Route Wrap kar diya */}
+        <Route 
+          path="/portfolio" 
+          element={
+            <ProtectedRoute>
+              <MyPortfolio />
+            </ProtectedRoute>
+          } 
+        />
+        
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </BrowserRouter>
