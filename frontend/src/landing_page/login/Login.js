@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import API from "../api"; // 🔥 Import the production-ready API instance
+import api from '../../api'; // 🔥 Import the production-ready API instance
 
 const Login = () => {
   const [inputValue, setInputValue] = useState({

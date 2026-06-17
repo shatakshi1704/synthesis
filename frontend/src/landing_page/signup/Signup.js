@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import API from "../api"; // 🔥 Import the centralized API instance
+import api from '../../api'; // 🔥 Import the centralized API instance
 
 const Signup = () => {
   const navigate = useNavigate();
