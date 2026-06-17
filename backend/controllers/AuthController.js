@@ -63,7 +63,8 @@ module.exports.Login = async (req, res, next) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,           // Ensures transmission over HTTPS
-      sameSite: "none",       // Allows cross-domain cookie access (Frontend to Backend)
+      sameSite: "none",  
+      path: "/"     
     });
     
     return res.status(200).json({ message: "User logged in successfully", success: true });

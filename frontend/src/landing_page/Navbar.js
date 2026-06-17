@@ -7,62 +7,39 @@ function Navbar() {
   const navigate = useNavigate();
 
   const Logout = () => {
-    removeCookie("token");
+    removeCookie("token", { path: "/" });
     navigate("/");
   };
 
   return (
     <nav className="navbar navbar-expand-lg border-bottom py-3" style={{ backgroundColor: "#FFFFFF" }}>
       <div className="container">
-        <Link className="navbar-brand d-flex align-items-center" to="/">
-          <img
-            src="media/images/fulllogo.png"
-            alt="Synthesis Logo"
-            style={{ width: "200px", objectFit: "contain" }}
-          />
+        <Link className="navbar-brand" to="/">
+          <img src="media/images/fulllogo.png" alt="Synthesis Logo" style={{ width: "200px" }} />
         </Link>
         
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
         <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul className="navbar-nav align-items-center gap-4">
             <li className="nav-item"><Link className="nav-link text-dark" to="/about">About</Link></li>
-            <li className="nav-item"><Link className="nav-link text-dark" to="/product">Product</Link></li>
-            <li className="nav-item"><Link className="nav-link text-dark" to="/pricing">Pricing</Link></li>
-            <li className="nav-item"><Link className="nav-link text-dark" to="/support">Support</Link></li>
-
+            
             {/* Conditional Rendering logic */}
             {cookies.token ? (
               <>
                 <li className="nav-item">
-                  {/* 🔥 FIX: <Link> ki jagah <a> tag for cross-port jumping */}
-                  <a className="nav-link text-dark" href="http://localhost:3001" style={{ fontWeight: "600" }}>Dashboard</a>
+                  <a className="nav-link text-dark" href="https://synthesis-peach.vercel.app" style={{ fontWeight: "600" }}>Dashboard</a>
                 </li>
                 <li className="nav-item">
-                  {/* 🔥 FIX: <Link> ki jagah <a> tag for cross-port jumping */}
-                  <a className="nav-link text-dark" href="http://localhost:3001/portfolio" style={{ fontWeight: "600" }}>Portfolio</a>
+                  <a className="nav-link text-dark" href="https://synthesis-peach.vercel.app/portfolio" style={{ fontWeight: "600" }}>Portfolio</a>
                 </li>
-                <li className="nav-item ms-3">
-                  <button 
-                    onClick={Logout}
-                    className="btn px-4 py-2" 
-                    style={{ backgroundColor: "#810B38", color: "#FFFFFF", borderRadius: "6px" }}
-                  >
+                <li className="nav-item">
+                  <button onClick={Logout} className="btn" style={{ backgroundColor: "#810B38", color: "#FFFFFF" }}>
                     Logout
                   </button>
                 </li>
               </>
             ) : (
-              <li className="nav-item ms-3">
-                <Link 
-                  className="btn px-4 py-2" 
-                  to="/signup" 
-                  style={{ backgroundColor: "#810B38", color: "#FFFFFF", fontWeight: "600", borderRadius: "6px" }}
-                >
-                  Signup
-                </Link>
+              <li className="nav-item">
+                <Link className="btn" to="/signup" style={{ backgroundColor: "#810B38", color: "#FFFFFF" }}>Signup</Link>
               </li>
             )}
           </ul>
