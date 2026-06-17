@@ -63,8 +63,8 @@ const MyPortfolio = () => {
         </div>
         <div className="header-actions no-print">
           {/* 🔥 Update these URLs with your actual Vercel project links */}
-          <button className="download-btn" onClick={() => window.location.href = 'https://your-frontend-project.vercel.app/'}>HOME</button>
-          <button className="download-btn" onClick={() => navigate("/portfolio")}>PORTFOLIO</button>
+          <button className="download-btn" onClick={() => window.location.href = 'https://synthesis-mmdv.vercel.app'}>HOME</button>
+          <button className="download-btn" onClick={() => navigate("/dashboard")}>DASHBOARD</button>
           <button className="download-btn" onClick={handlePrint}>EXPORT REPORT</button>
           <div className="live-indicator"><div className="live-dot"></div> MARKET OPEN</div>
         </div>
