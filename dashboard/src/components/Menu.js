@@ -31,7 +31,7 @@ const Menu = () => {
 
       <div style={styles.rightSection}>
         {/* 🔥 Use your live Landing Page URL instead of localhost */}
-        <a href="https://your-frontend-project.vercel.app/" style={styles.link}>Home</a>
+        <a href="https://synthesis-mmdv.vercel.app/" style={styles.link}>Home</a>
         <Link to="/portfolio" style={styles.link}>Portfolio</Link>
         
         <div style={styles.profile}>
