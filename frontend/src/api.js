@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const API = axios.create({
+const api = axios.create({
   baseURL: "https://synthesis-backend.onrender.com", // Backend ka same URL
-  withCredentials: true
+  withCredentials: true,
 });
 
-export default API;
+export default api;

@@ -61,11 +61,9 @@ module.exports.Login = async (req, res, next) => {
 
     // PRODUCTION COOKIE SETTINGS
     res.cookie("token", token, {
-      path: "/",
       httpOnly: true,
       secure: true,           // Ensures transmission over HTTPS
       sameSite: "none",       // Allows cross-domain cookie access (Frontend to Backend)
-      maxAge: 24 * 60 * 60 * 1000 // 1 Day
     });
     
     return res.status(200).json({ message: "User logged in successfully", success: true });
