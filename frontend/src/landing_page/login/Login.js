@@ -17,12 +17,12 @@ const Login = () => {
     e.preventDefault();
     try {
       // 🔥 Using API instance
-      const { data } = await API.post("/login", { ...inputValue });
+      const { data } = await api.post("/login", { ...inputValue });
       
       const { success, message } = data;
       if (success) {
         // 🔥 Redirect to your live Dashboard Vercel URL
-        window.location.href = "https://your-dashboard-url.vercel.app";
+        window.location.href = "https://synthesis-peach.vercel.app";
       } else {
         alert(message);
       }

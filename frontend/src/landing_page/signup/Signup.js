@@ -22,7 +22,7 @@ const Signup = () => {
     try {
       // 🔥 Using API instance instead of axios
       // BaseURL aur withCredentials yahan se automatic apply honge
-      const { data } = await API.post("/signup", { ...inputValue });
+      const { data } = await api.post("/signup", { ...inputValue });
 
       const { success, message } = data;
       if (success) {
