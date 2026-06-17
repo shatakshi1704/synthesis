@@ -23,10 +23,8 @@ const uri = process.env.MONGO_URL;
 
 // 2. PRODUCTION CORS SETUP
 const allowedOrigins = [
-  "http://localhost:3000",
-  "http://localhost:3001",
-  "https://your-frontend-url.vercel.app", // Yahan apna live URL dalna baad mein
-  "https://your-dashboard-url.vercel.app"  // Yahan apna live URL dalna baad mein
+  "https://synthesis-mmdv.vercel.app", // Tumhara Frontend
+  "https://synthesis-peach.vercel.app" // Tumhara Dashboard
 ];
 
 app.use(cookieParser());
