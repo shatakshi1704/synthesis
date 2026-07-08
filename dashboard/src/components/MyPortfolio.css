@@ -402,32 +402,3 @@
   
 }
 
-@media print {
-  /* Print layout ko clean karo */
-  .no-print, .header-actions, .time-filter { display: none !important; }
-  
-  .dashboard-layout { display: block !important; width: 100% !important; }
-
-  /* Grid ko stack mein badlo */
-  .charts-grid {
-    display: block !important;
-    width: 100% !important;
-  }
-
-  /* HAR CHART KO SEPARATE BOX DO */
-  .chart-box {
-    display: block !important;
-    width: 100% !important;
-    height: 250px !important;    /* Thoda height badhaya */
-    margin-bottom: 50px !important; /* Inke beech 50px ka gap */
-    page-break-inside: avoid !important;
-    border-bottom: 1px solid #eee; /* Visual separation */
-  }
-
-  /* Recharts ko force karo ki container fill kare */
-  .recharts-wrapper {
-    display: block !important;
-    width: 100% !important;
-    height: 200px !important;
-  }
-}

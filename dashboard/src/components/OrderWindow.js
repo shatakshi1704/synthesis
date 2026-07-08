@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { GeneralContext } from "./GeneralContext";
-import axios from "axios";
-import "./OrderWindow.css"; // CSS file link
+import API from "../api"; 
+import "./OrderWindow.css";
 
 const OrderWindow = () => {
   const { selectedStock, actionType, closeBuyWindow } = useContext(GeneralContext);
@@ -14,17 +14,19 @@ const OrderWindow = () => {
 
   const handleOrder = async () => {
     try {
-      await axios.post("http://localhost:3002/newOrder", {
+      // ✅ Yahan localhost ki jagah API instance use karo
+      await API.post("/newOrder", {
         name: selectedStock.name,
         qty: quantity,
         price: price,
         mode: actionType
-      }, { withCredentials: true });
+      });
       
       alert(`${actionType} order successful!`);
       closeBuyWindow();
       window.location.reload(); 
     } catch (err) {
+      console.error("Order error:", err); // Console mein error print karalo future debugging ke liye
       alert("Order failed!");
     }
   };
