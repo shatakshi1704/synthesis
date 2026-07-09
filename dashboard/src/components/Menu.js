@@ -27,7 +27,6 @@ const Menu = () => {
 
   return (
     <div style={styles.navbar}>
-      <h3 style={styles.brand}>SYNTHESIS</h3>
 
       <div style={styles.rightSection}>
         {/* 🔥 Use your live Landing Page URL instead of localhost */}
