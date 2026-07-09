@@ -89,6 +89,7 @@ app.get("/allPositions", verifyUser, async (req, res) => {
 
 // 📈 WATCHLIST
 // 📈 WATCHLIST (WITH DYNAMIC FAKER PRICES)
+// 📈 WATCHLIST (WITH DYNAMIC FAKER PRICES)
 app.get("/allWatchlist", async (req, res) => {
   try {
     // .lean() use karne se object modify karna aasan ho jata hai
