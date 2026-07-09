@@ -198,9 +198,11 @@ const MyPortfolio = () => {
         </div>
 
         <div className="secondary-column">
+          {/* Core Positions Panel */}
           <div className="clean-panel">
             <h4>Core Positions</h4>
-            <div className="holdings-list">
+            {/* 🔥 Added maxHeight and scroll to Holdings */}
+            <div className="holdings-list" style={{ maxHeight: '250px', overflowY: 'auto', paddingRight: '8px' }}>
               {data.holdings.length > 0 ? data.holdings.map((h, i) => (
                 <div key={i} className="holding-list-item">
                   <div className="h-left"><span className="h-ticker">{h.name}</span><span className="h-qty">{h.qty} Qty</span></div>
@@ -210,9 +212,11 @@ const MyPortfolio = () => {
             </div>
           </div>
 
+          {/* Recent Orders Panel */}
           <div className="clean-panel">
             <h4>Recent Orders</h4>
-            <div className="orders-list">
+            {/* 🔥 Added maxHeight and scroll to Orders (Height set to match left column perfectly) */}
+            <div className="orders-list" style={{ maxHeight: '420px', overflowY: 'auto', paddingRight: '8px' }}>
               {data.orders.length > 0 ? data.orders.map((o, i) => (
                 <div key={i} className="order-list-item">
                   <div className="o-left"><span className={`o-type ${o.mode ? o.mode.toLowerCase() : ''}`}>{o.mode}</span><span className="o-ticker">{o.name}</span></div>
