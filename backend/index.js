@@ -47,7 +47,7 @@ const corsOptions = {
 
 app.use(cookieParser());
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // 🔴 Yeh line har preflight request ko bypass karwayegi
+app.options(/.*/, cors(corsOptions));
 
 app.use(bodyParser.json());
 
