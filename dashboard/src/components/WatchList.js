@@ -22,10 +22,13 @@ const WatchList = () => {
 
   const handleRefresh = async () => {
     try {
-      // 🔥 Using API instance for refresh
-      await API.get("/refreshWatchlist");
-      fetchData();
-    } catch (err) { console.error("Refresh Error:", err); }
+      // ❌ await API.get("/refreshWatchlist"); <-- Isko hata do, iski wajah se code break ho raha tha
+      
+      // ✅ Sirf fetchData call karo. Yeh /allWatchlist ko hit karega aur naye prices le aayega.
+      await fetchData(); 
+    } catch (err) { 
+      console.error("Refresh Error:", err); 
+    }
   };
 
   const filtered = allStocks.filter((s) => s.name?.toLowerCase().includes(searchQuery.toLowerCase()));

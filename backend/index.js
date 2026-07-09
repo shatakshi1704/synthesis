@@ -88,11 +88,33 @@ app.get("/allPositions", verifyUser, async (req, res) => {
 });
 
 // 📈 WATCHLIST
+// 📈 WATCHLIST (WITH DYNAMIC FAKER PRICES)
 app.get("/allWatchlist", async (req, res) => {
   try {
-    const allStocks = await WatchlistModel.find({});
-    res.json(allStocks);
-  } catch (error) { res.status(500).json({ message: "Server Error" }); }
+    // .lean() use karne se object modify karna aasan ho jata hai
+    const allStocks = await WatchlistModel.find({}).lean();
+    
+    // Har stock pe loop lagao aur faker se naya price generate karo
+    const stocksWithLivePrices = allStocks.map(stock => {
+      // 100 se 5000 ke beech random price
+      const randomPrice = parseFloat(faker.finance.amount(100, 5000, 2));
+      
+      // Random percentage change
+      const randomPercent = parseFloat(faker.finance.amount(0.1, 5, 2));
+      const isDown = Math.random() > 0.5;
+
+      return {
+        ...stock,
+        price: randomPrice,
+        percent: randomPercent,
+        isDown: isDown
+      };
+    });
+
+    res.json(stocksWithLivePrices);
+  } catch (error) { 
+    res.status(500).json({ message: "Server Error" }); 
+  }
 });
 
 // 💸 NEW ORDER
