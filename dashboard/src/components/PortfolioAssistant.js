@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import './PortfolioAssistant.css'; // Styling ke liye
+import './PortfolioAssistant.css';
 
 function PortfolioAssistant() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { sender: 'bot', text: 'Hey! Main Synthesis Assistant hoon. Portfolio, trades ya alpha intel ke baare mein kuch bhi poocho!' }
+    { sender: 'bot', text: 'Hello! I am the Synthesis Assistant. Feel free to ask about your portfolio, trades, or market intel.' }
   ]);
   const [input, setInput] = useState('');
 
@@ -22,14 +22,16 @@ function PortfolioAssistant() {
       const response = await fetch("https://synthesis-backend.onrender.com/api/assistant", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include", // Cookie/Token bhejne ke liye
+        credentials: "include",
         body: JSON.stringify({ message: userMessage })
       });
-      const data = await response.json();
       
-      setMessages(prev => [...prev, { sender: 'bot', text: data.reply || "Kuch gadbad ho gayi!" }]);
+      if (!response.ok) throw new Error("Network response failed");
+      
+      const data = await response.json();
+      setMessages(prev => [...prev, { sender: 'bot', text: data.reply || "I am unable to process that request right now." }]);
     } catch (error) {
-      setMessages(prev => [...prev, { sender: 'bot', text: "Server se connect nahi ho pa raha hai!" }]);
+      setMessages(prev => [...prev, { sender: 'bot', text: "Connection error. Please verify your backend server status." }]);
     }
   };
 
@@ -37,7 +39,7 @@ function PortfolioAssistant() {
     <div className="assistant-container">
       {!isOpen && (
         <button className="assistant-toggle-btn" onClick={toggleChat}>
-          💬 AI Assistant
+          AI Assistant
         </button>
       )}
 
@@ -58,7 +60,7 @@ function PortfolioAssistant() {
             <input 
               type="text" 
               value={input} 
-              onChange={(e) => setInput(e.target.value) } 
+              onChange={(e) => setInput(e.target.value)} 
               placeholder="Ask about your portfolio..." 
             />
             <button type="submit">Send</button>
