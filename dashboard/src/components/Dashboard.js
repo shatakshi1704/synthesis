@@ -9,6 +9,7 @@ import Holdings from "./Holdings";
 import Orders from "./Orders";
 import Positions from "./Positions";
 import OrderWindow from "./OrderWindow";
+import PortfolioAssistant from './PortfolioAssistant';
 
 const DashboardWrapper = () => {
   // 1. Context se state lo
@@ -29,7 +30,9 @@ const DashboardWrapper = () => {
         
         {/* 2. Window ko yahan render karo (Jab open ho tabhi dikhe) */}
         {isBuyWindowOpen && <OrderWindow />}
+        
       </div>
+      <PortfolioAssistant />
     </div>
   );
 };
