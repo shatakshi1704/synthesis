@@ -122,6 +122,34 @@ app.get("/allWatchlist", async (req, res) => {
   }
 });
 
+app.post("/api/assistant", verifyUser, async (req, res) => {
+  try {
+    const { message } = req.body;
+    
+    // User ka balance aur holdings nikal lo taaki AI ko context mile
+    const user = await UserModel.findById(req.userId);
+    const holdings = await HoldingsModel.find({ user: req.userId });
+    const latestIntel = await IntelModel.find({}).sort({ date: -1 }).limit(3);
+
+    const context = `
+      User Balance: ₹${user?.balance || 0}
+      User Holdings: ${JSON.stringify(holdings)}
+      Latest Market Intel: ${JSON.stringify(latestIntel)}
+    `;
+
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const prompt = `You are a helpful assistant for a portfolio and trading website called Synthesis. Use the following context about the user to answer their question politely and accurately in a conversational tone.\n\nContext:\n${context}\n\nUser Question: ${message}`;
+
+    const result = await model.generateContent(prompt);
+    const reply = result.response.text();
+
+    res.json({ reply });
+  } catch (error) {
+    console.error("Assistant Error:", error);
+    res.status(500).json({ message: "Error generating response" });
+  }
+});
+
 // 🧠 SYNTHESIS ALPHA INTEL - AI SENTIMENT RECEIVER (FIXED ROUTE WRAPPER)
 app.post("/api/alpha-intel", async (req, res) => {
   try {

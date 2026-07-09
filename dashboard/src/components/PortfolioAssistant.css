@@ -1,0 +1,118 @@
+.assistant-container {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 999999;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.assistant-toggle-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+  transition: transform 0.2s ease;
+}
+
+.assistant-toggle-btn:hover {
+  transform: scale(1.05);
+}
+
+.assistant-chat-box {
+  width: 320px;
+  height: 400px;
+  background: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #333;
+  color: #fff;
+}
+
+.assistant-header {
+  background: #252525;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #333;
+}
+
+.assistant-header h4 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.assistant-messages {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #141414;
+}
+
+.message {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  max-width: 80%;
+  line-height: 1.4;
+}
+
+.message.bot {
+  background: #262626;
+  color: #e0e0e0;
+  align-self: flex-start;
+}
+
+.message.user {
+  background: #007bff;
+  color: white;
+  align-self: flex-end;
+}
+
+.assistant-input-form {
+  display: flex;
+  padding: 10px;
+  background: #252525;
+  border-top: 1px solid #333;
+}
+
+.assistant-input-form input {
+  flex: 1;
+  background: #141414;
+  border: 1px solid #444;
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: #fff;
+  outline: none;
+  font-size: 13px;
+}
+
+.assistant-input-form button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0 14px;
+  margin-left: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+}
