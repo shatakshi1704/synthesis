@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Synthesis Alpha Intel",
+  "version": "1.0",
+  "description": "Extracts financial news for Synthesis Portfolio.",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://*.moneycontrol.com/*",
+    "https://economictimes.indiatimes.com/*",
+    "https://*.livemint.com/*",
+    "https://finance.yahoo.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.moneycontrol.com/*",
+        "https://economictimes.indiatimes.com/*",
+        "https://*.livemint.com/*",
+        "https://finance.yahoo.com/*"
+      ],
+      "js": ["content.js"]
+    }
+  ]
+}

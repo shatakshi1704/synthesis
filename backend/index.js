@@ -14,6 +14,7 @@ const { PositionsModel } = require("./model/PositionsModel");
 const { OrdersModel } = require("./model/OrdersModel");
 const UserModel = require("./model/UserModel");
 const { WatchlistModel } = require("./model/WatchlistModel");
+const IntelModel = require("./model/IntelModel");
 
 const app = express();
 
@@ -201,6 +202,35 @@ app.post("/newOrder", verifyUser, async (req, res) => {
   } catch (error) { 
     console.error("Order Error:", error);
     res.status(500).json({ message: "Error saving order" }); 
+  }
+});
+
+// 🧠 SYNTHESIS ALPHA INTEL - NEWS RECEIVER
+app.post("/api/alpha-intel", async (req, res) => {
+  try {
+    const { title, snippet, url, source } = req.body;
+    
+    // Duplicates rokne ke liye URL check karte hain
+    const existingIntel = await IntelModel.findOne({ url: url });
+    if (existingIntel) {
+      return res.status(200).json({ message: "Intel already exists!" });
+    }
+
+    // Naya data save karo
+    const newIntel = new IntelModel({
+      title,
+      snippet,
+      url,
+      source
+    });
+    
+    await newIntel.save();
+    console.log("🔥 New Alpha Intel Saved:", title);
+    
+    res.status(201).json({ message: "Intel saved successfully!" });
+  } catch (error) {
+    console.error("Alpha Intel Error:", error);
+    res.status(500).json({ message: "Failed to save intel" });
   }
 });
 
