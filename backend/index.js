@@ -179,6 +179,18 @@ app.post("/api/alpha-intel", async (req, res) => {
   }
 });
 
+// 📡 SYNTHESIS ALPHA INTEL - SEND DATA TO FRONTEND
+app.get("/api/alpha-intel", async (req, res) => {
+  try {
+    // Database se saari news nikalenge, aur sabse nayi (latest) news sabse upar aayegi
+    const allIntels = await IntelModel.find({}).sort({ date: -1 });
+    res.json(allIntels);
+  } catch (error) {
+    console.error("Error fetching Alpha Intel:", error);
+    res.status(500).json({ message: "Failed to fetch intel data" });
+  }
+});
+
 // 💸 NEW ORDER
 // 💸 NEW ORDER (WITH WALLET & SELL LOGIC)
 app.post("/newOrder", verifyUser, async (req, res) => {
