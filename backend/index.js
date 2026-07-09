@@ -122,26 +122,31 @@ app.get("/allWatchlist", async (req, res) => {
   }
 });
 
-// 🧠 SYNTHESIS ALPHA INTEL - AI SENTIMENT RECEIVER
-// 2. AI BRAIN AT WORK 🧠 (Sentiment Analysis)
-    let aiSentiment = "NEUTRAL"; // Default value
+// 🧠 SYNTHESIS ALPHA INTEL - AI SENTIMENT RECEIVER (FIXED ROUTE WRAPPER)
+app.post("/api/alpha-intel", async (req, res) => {
+  try {
+    const { title, snippet, url, source } = req.body;
+    
+    const existingIntel = await IntelModel.findOne({ url: url });
+    if (existingIntel) {
+      return res.status(200).json({ message: "Intel already exists!" });
+    }
+
+    let aiSentiment = "NEUTRAL"; 
     try {
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
       
-      // Prompt ko aur zyada clear aur strict kar diya hai
       const prompt = `Analyze the financial news title and snippet below. Determine if the stock market sentiment is BULLISH, BEARISH, or NEUTRAL. You must reply with ONLY ONE WORD from these choices: BULLISH, BEARISH, NEUTRAL. Do not include any punctuation, explanation, or extra spaces.\n\nTitle: ${title}\nSnippet: ${snippet}`;
       
       const result = await model.generateContent(prompt);
       const responseText = result.response.text().trim().toUpperCase();
-      console.log("Raw Gemini Response:", responseText); // Debugging ke liye log
+      console.log("Raw Gemini Response:", responseText);
 
-      // Improved matching logic
       if (responseText.includes("BULLISH")) {
         aiSentiment = "BULLISH";
       } else if (responseText.includes("BEARISH")) {
         aiSentiment = "BEARISH";
       } else {
-        // Fallback keyword check agar model ne thoda lamba ya alag word diya ho
         if (title.toLowerCase().includes("surge") || title.toLowerCase().includes("jump") || title.toLowerCase().includes("profit") || title.toLowerCase().includes("record")) {
           aiSentiment = "BULLISH";
         } else if (title.toLowerCase().includes("loss") || title.toLowerCase().includes("crash") || title.toLowerCase().includes("fall") || title.toLowerCase().includes("slump")) {
@@ -154,6 +159,24 @@ app.get("/allWatchlist", async (req, res) => {
     } catch (aiError) {
       console.error("AI Analysis failed, using default NEUTRAL:", aiError);
     }
+
+    const newIntel = new IntelModel({
+      title,
+      snippet,
+      url,
+      source,
+      sentiment: aiSentiment
+    });
+    
+    await newIntel.save();
+    console.log(`🔥 New Alpha Intel Saved: ${title} | Sentiment: 🤖 ${aiSentiment}`);
+    
+    res.status(201).json({ message: "Intel and AI Sentiment saved successfully!" });
+  } catch (error) {
+    console.error("Alpha Intel Error:", error);
+    res.status(500).json({ message: "Failed to save intel" });
+  }
+});
 
 // 📡 SYNTHESIS ALPHA INTEL - SEND DATA TO FRONTEND
 app.get("/api/alpha-intel", async (req, res) => {
@@ -176,7 +199,6 @@ app.post("/newOrder", verifyUser, async (req, res) => {
     const user = await UserModel.findById(req.userId);
     if (!user) return res.status(404).json({ message: "User not found!" });
 
-    // 🔴 SELL LOGIC
     if (req.body.mode === "SELL") {
       let holding = await HoldingsModel.findOne({ user: req.userId, name: req.body.name });
       
@@ -198,8 +220,6 @@ app.post("/newOrder", verifyUser, async (req, res) => {
       user.balance = (user.balance || 0) + tradeTotalAmount;
       await user.save();
     } 
-    
-    // 🟢 BUY LOGIC
     else if (req.body.mode === "BUY") {
       if ((user.balance || 0) < tradeTotalAmount) {
         return res.status(400).json({ message: `Insufficient funds! Margin required is ₹${tradeTotalAmount.toFixed(2)} but your balance is ₹${(user.balance || 0).toFixed(2)}.` });
