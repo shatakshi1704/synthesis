@@ -1,3 +1,4 @@
+// model/IntelModel.js
 const mongoose = require("mongoose");
 
 const IntelSchema = new mongoose.Schema({
@@ -5,8 +6,8 @@ const IntelSchema = new mongoose.Schema({
   snippet: String,
   url: String,
   source: String,
-  sentiment: { type: String, default: "Pending AI Analysis" }, // Baad mein AI isko update karega
+  sentiment: { type: String, default: "NEUTRAL" }, // 🔴 Yeh nayi line add karni hai
   date: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model("intel", IntelSchema);
+module.exports = mongoose.model("Intel", IntelSchema);

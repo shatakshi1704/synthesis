@@ -7,6 +7,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const { faker } = require('@faker-js/faker');
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 // MODELS
 const { HoldingsModel } = require("./model/HoldingsModel");
@@ -124,6 +125,57 @@ app.get("/allWatchlist", async (req, res) => {
     res.json(stocksWithLivePrices);
   } catch (error) { 
     res.status(500).json({ message: "Server Error" }); 
+  }
+});
+
+// 🧠 SYNTHESIS ALPHA INTEL - AI SENTIMENT RECEIVER
+app.post("/api/alpha-intel", async (req, res) => {
+  try {
+    const { title, snippet, url, source } = req.body;
+    
+    // 1. Duplicates rokne ke liye URL check karte hain
+    const existingIntel = await IntelModel.findOne({ url: url });
+    if (existingIntel) {
+      return res.status(200).json({ message: "Intel already exists!" });
+    }
+
+    // 2. AI BRAIN AT WORK 🧠 (Sentiment Analysis)
+    let aiSentiment = "NEUTRAL"; // Default value
+    try {
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      
+      // AI ko strict instruction de rahe hain
+      const prompt = `You are a professional stock market expert. Read the following news title and snippet, and determine the market sentiment. Reply with EXACTLY ONE WORD from these three options: BULLISH, BEARISH, or NEUTRAL.\n\nTitle: ${title}\nSnippet: ${snippet}`;
+      
+      const result = await model.generateContent(prompt);
+      const responseText = result.response.text().trim().toUpperCase();
+
+      // AI ke answer ko filter kar rahe hain
+      if (responseText.includes("BULLISH")) aiSentiment = "BULLISH";
+      else if (responseText.includes("BEARISH")) aiSentiment = "BEARISH";
+      else aiSentiment = "NEUTRAL";
+      
+    } catch (aiError) {
+      console.error("AI Analysis failed, using default NEUTRAL:", aiError);
+      // Agar AI fail hua toh app crash nahi hogi, bas NEUTRAL save ho jayega
+    }
+
+    // 3. Naya data (with Sentiment) Save karo
+    const newIntel = new IntelModel({
+      title,
+      snippet,
+      url,
+      source,
+      sentiment: aiSentiment
+    });
+    
+    await newIntel.save();
+    console.log(`🔥 New Alpha Intel Saved: ${title} | Sentiment: 🤖 ${aiSentiment}`);
+    
+    res.status(201).json({ message: "Intel and AI Sentiment saved successfully!" });
+  } catch (error) {
+    console.error("Alpha Intel Error:", error);
+    res.status(500).json({ message: "Failed to save intel" });
   }
 });
 
