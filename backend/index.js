@@ -133,31 +133,28 @@ app.post("/api/alpha-intel", async (req, res) => {
     }
 
     let aiSentiment = "NEUTRAL"; 
-    try {
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-      
-      const prompt = `Analyze the financial news title and snippet below. Determine if the stock market sentiment is BULLISH, BEARISH, or NEUTRAL. You must reply with ONLY ONE WORD from these choices: BULLISH, BEARISH, NEUTRAL. Do not include any punctuation, explanation, or extra spaces.\n\nTitle: ${title}\nSnippet: ${snippet}`;
-      
-      const result = await model.generateContent(prompt);
-      const responseText = result.response.text().trim().toUpperCase();
-      console.log("Raw Gemini Response:", responseText);
+    
+    // 🔥 Sabse pehle keyword-based aggressive override lagate hain
+    const lowerTitle = title.toLowerCase();
+    if (lowerTitle.includes("surge") || lowerTitle.includes("jump") || lowerTitle.includes("surges") || lowerTitle.includes("profit") || lowerTitle.includes("record") || lowerTitle.includes("dividend")) {
+      aiSentiment = "BULLISH";
+    } else if (lowerTitle.includes("loss") || lowerTitle.includes("crash") || lowerTitle.includes("fall") || lowerTitle.includes("slump") || lowerTitle.includes("tanks")) {
+      aiSentiment = "BEARISH";
+    } else {
+      // Agar upar ke words match na hon, tab AI se poochho
+      try {
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const prompt = `Analyze the financial news title and snippet below. Determine if the stock market sentiment is BULLISH, BEARISH, or NEUTRAL. Reply with ONLY ONE WORD: BULLISH, BEARISH, NEUTRAL.\n\nTitle: ${title}\nSnippet: ${snippet}`;
+        
+        const result = await model.generateContent(prompt);
+        const responseText = result.response.text().trim().toUpperCase();
 
-      if (responseText.includes("BULLISH")) {
-        aiSentiment = "BULLISH";
-      } else if (responseText.includes("BEARISH")) {
-        aiSentiment = "BEARISH";
-      } else {
-        if (title.toLowerCase().includes("surge") || title.toLowerCase().includes("jump") || title.toLowerCase().includes("profit") || title.toLowerCase().includes("record")) {
-          aiSentiment = "BULLISH";
-        } else if (title.toLowerCase().includes("loss") || title.toLowerCase().includes("crash") || title.toLowerCase().includes("fall") || title.toLowerCase().includes("slump")) {
-          aiSentiment = "BEARISH";
-        } else {
-          aiSentiment = "NEUTRAL";
-        }
+        if (responseText.includes("BULLISH")) aiSentiment = "BULLISH";
+        else if (responseText.includes("BEARISH")) aiSentiment = "BEARISH";
+        else aiSentiment = "NEUTRAL";
+      } catch (aiError) {
+        console.error("AI Analysis failed:", aiError);
       }
-      
-    } catch (aiError) {
-      console.error("AI Analysis failed, using default NEUTRAL:", aiError);
     }
 
     const newIntel = new IntelModel({
