@@ -16,6 +16,7 @@ const { OrdersModel } = require("./model/OrdersModel");
 const UserModel = require("./model/UserModel");
 const { WatchlistModel } = require("./model/WatchlistModel");
 const IntelModel = require("./model/IntelModel");
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const app = express();
 

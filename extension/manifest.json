@@ -7,10 +7,7 @@
     "storage"
   ],
   "host_permissions": [
-    "https://*.moneycontrol.com/*",
-    "https://economictimes.indiatimes.com/*",
-    "https://*.livemint.com/*",
-    "https://finance.yahoo.com/*"
+    "<all_urls>"
   ],
   "background": {
     "service_worker": "background.js"
@@ -18,10 +15,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://*.moneycontrol.com/*",
-        "https://economictimes.indiatimes.com/*",
-        "https://*.livemint.com/*",
-        "https://finance.yahoo.com/*"
+        "<all_urls>"
       ],
       "js": ["content.js"]
     }
