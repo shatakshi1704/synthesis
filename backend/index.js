@@ -23,24 +23,24 @@ const PORT = process.env.PORT || 3002;
 const uri = process.env.MONGO_URL;
 
 // 2. PRODUCTION CORS SETUP
+// 2. PRODUCTION CORS SETUP
 const allowedOrigins = [
   "https://synthesis-mmdv.vercel.app", // Tumhara Frontend
-  "https://synthesis-peach.vercel.app" // Tumhara Dashboard
+  "https://synthesis-peach.vercel.app", // Tumhara Dashboard
+  "chrome-extension://ichegomlijmeiejhmekinokmbkollmmj" // Extension ki VIP entry!
 ];
 
 app.use(cookieParser());
 app.use(cors({
   origin: function (origin, callback) {
-    // !origin -> Postman wagerah allow karta hai
-    // allowedOrigins -> Tumhara frontend allow karta hai
-    // origin.startsWith('chrome-extension://') -> Tumhara naya extension allow karega
-    if (!origin || allowedOrigins.indexOf(origin) !== -1 || origin.startsWith('chrome-extension://')) {
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
     }
   },
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // OPTIONS preflight ke liye sabse zaroori hai
+  allowedHeaders: ["Content-Type", "Authorization"], // Preflight headers pass karne ke liye
   credentials: true,
 }));
 
