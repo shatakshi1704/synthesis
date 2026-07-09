@@ -1,13 +1,12 @@
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.type === "NEW_INTEL") {
-    const data = message.payload;
-    console.log("Background received data:", data);
+  // Direct message object check kar rahe hain (kyunki content.js direct bhej raha hai)
+  if (message.title && message.url) {
+    console.log("Background received data:", message);
 
-    // ✅ URL ke aage /api/alpha-intel lagana zaroori hai
     fetch("https://synthesis-backend.onrender.com/api/alpha-intel", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+      body: JSON.stringify(message)
     })
     .then(response => response.json())
     .then(result => console.log("Saved to Synthesis Backend!", result))
