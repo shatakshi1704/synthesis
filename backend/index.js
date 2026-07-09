@@ -24,14 +24,14 @@ const uri = process.env.MONGO_URL;
 
 // 2. PRODUCTION CORS SETUP
 // 2. PRODUCTION CORS SETUP
+// 2. PRODUCTION CORS SETUP
 const allowedOrigins = [
   "https://synthesis-mmdv.vercel.app", // Tumhara Frontend
   "https://synthesis-peach.vercel.app", // Tumhara Dashboard
-  "chrome-extension://ichegomlijmeiejhmekinokmbkollmmj" // Extension ki VIP entry!
+  "chrome-extension://ichegomlijmeiejhmekinokmbkollmmj" // Extension ki VIP entry
 ];
 
-app.use(cookieParser());
-app.use(cors({
+const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
@@ -39,10 +39,15 @@ app.use(cors({
       callback(new Error('Not allowed by CORS'));
     }
   },
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // OPTIONS preflight ke liye sabse zaroori hai
-  allowedHeaders: ["Content-Type", "Authorization"], // Preflight headers pass karne ke liye
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
-}));
+  optionsSuccessStatus: 200 // Preflight success response code
+};
+
+app.use(cookieParser());
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // 🔴 Yeh line har preflight request ko bypass karwayegi
 
 app.use(bodyParser.json());
 
