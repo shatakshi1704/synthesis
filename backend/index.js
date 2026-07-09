@@ -16,6 +16,8 @@ const { OrdersModel } = require("./model/OrdersModel");
 const UserModel = require("./model/UserModel");
 const { WatchlistModel } = require("./model/WatchlistModel");
 const IntelModel = require("./model/IntelModel");
+
+// AI INITIALIZATION 🧠
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const app = express();
@@ -25,12 +27,10 @@ const PORT = process.env.PORT || 3002;
 const uri = process.env.MONGO_URL;
 
 // 2. PRODUCTION CORS SETUP
-// 2. PRODUCTION CORS SETUP
-// 2. PRODUCTION CORS SETUP
 const allowedOrigins = [
-  "https://synthesis-mmdv.vercel.app", // Tumhara Frontend
-  "https://synthesis-peach.vercel.app", // Tumhara Dashboard
-  "chrome-extension://ichegomlijmeiejhmekinokmbkollmmj" // Extension ki VIP entry
+  "https://synthesis-mmdv.vercel.app", 
+  "https://synthesis-peach.vercel.app", 
+  "chrome-extension://ichegomlijmeiejhmekinokmbkollmmj" 
 ];
 
 const corsOptions = {
@@ -44,7 +44,7 @@ const corsOptions = {
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
-  optionsSuccessStatus: 200 // Preflight success response code
+  optionsSuccessStatus: 200 
 };
 
 app.use(cookieParser());
@@ -98,20 +98,13 @@ app.get("/allPositions", verifyUser, async (req, res) => {
   } catch (error) { res.status(500).json({ message: "Server Error" }); }
 });
 
-// 📈 WATCHLIST
-// 📈 WATCHLIST (WITH DYNAMIC FAKER PRICES)
 // 📈 WATCHLIST (WITH DYNAMIC FAKER PRICES)
 app.get("/allWatchlist", async (req, res) => {
   try {
-    // .lean() use karne se object modify karna aasan ho jata hai
     const allStocks = await WatchlistModel.find({}).lean();
     
-    // Har stock pe loop lagao aur faker se naya price generate karo
     const stocksWithLivePrices = allStocks.map(stock => {
-      // 100 se 5000 ke beech random price
       const randomPrice = parseFloat(faker.finance.amount(100, 5000, 2));
-      
-      // Random percentage change
       const randomPercent = parseFloat(faker.finance.amount(0.1, 5, 2));
       const isDown = Math.random() > 0.5;
 
@@ -134,34 +127,31 @@ app.post("/api/alpha-intel", async (req, res) => {
   try {
     const { title, snippet, url, source } = req.body;
     
-    // 1. Duplicates rokne ke liye URL check karte hain
+    // Duplicates rokne ke liye URL check karte hain
     const existingIntel = await IntelModel.findOne({ url: url });
     if (existingIntel) {
       return res.status(200).json({ message: "Intel already exists!" });
     }
 
-    // 2. AI BRAIN AT WORK 🧠 (Sentiment Analysis)
-    let aiSentiment = "NEUTRAL"; // Default value
+    // AI BRAIN AT WORK 🧠 (Sentiment Analysis)
+    let aiSentiment = "NEUTRAL"; 
     try {
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
       
-      // AI ko strict instruction de rahe hain
       const prompt = `You are a professional stock market expert. Read the following news title and snippet, and determine the market sentiment. Reply with EXACTLY ONE WORD from these three options: BULLISH, BEARISH, or NEUTRAL.\n\nTitle: ${title}\nSnippet: ${snippet}`;
       
       const result = await model.generateContent(prompt);
       const responseText = result.response.text().trim().toUpperCase();
 
-      // AI ke answer ko filter kar rahe hain
       if (responseText.includes("BULLISH")) aiSentiment = "BULLISH";
       else if (responseText.includes("BEARISH")) aiSentiment = "BEARISH";
       else aiSentiment = "NEUTRAL";
       
     } catch (aiError) {
       console.error("AI Analysis failed, using default NEUTRAL:", aiError);
-      // Agar AI fail hua toh app crash nahi hogi, bas NEUTRAL save ho jayega
     }
 
-    // 3. Naya data (with Sentiment) Save karo
+    // Naya data (with Sentiment) Save karo
     const newIntel = new IntelModel({
       title,
       snippet,
@@ -183,7 +173,6 @@ app.post("/api/alpha-intel", async (req, res) => {
 // 📡 SYNTHESIS ALPHA INTEL - SEND DATA TO FRONTEND
 app.get("/api/alpha-intel", async (req, res) => {
   try {
-    // Database se saari news nikalenge, aur sabse nayi (latest) news sabse upar aayegi
     const allIntels = await IntelModel.find({}).sort({ date: -1 });
     res.json(allIntels);
   } catch (error) {
@@ -192,15 +181,13 @@ app.get("/api/alpha-intel", async (req, res) => {
   }
 });
 
-// 💸 NEW ORDER
 // 💸 NEW ORDER (WITH WALLET & SELL LOGIC)
 app.post("/newOrder", verifyUser, async (req, res) => {
   try {
     const tradeQty = parseInt(req.body.qty);
     const tradePrice = parseFloat(req.body.price);
-    const tradeTotalAmount = tradeQty * tradePrice; // Total trade value
+    const tradeTotalAmount = tradeQty * tradePrice; 
 
-    // User ka data fetch karo taaki uska balance check kar sakein
     const user = await UserModel.findById(req.userId);
     if (!user) return res.status(404).json({ message: "User not found!" });
 
@@ -208,17 +195,14 @@ app.post("/newOrder", verifyUser, async (req, res) => {
     if (req.body.mode === "SELL") {
       let holding = await HoldingsModel.findOne({ user: req.userId, name: req.body.name });
       
-      // Validation: Kya stock hai?
       if (!holding) {
         return res.status(400).json({ message: "You don't own any shares of this stock to sell!" });
       }
       
-      // Validation: Kya itne shares hain jitne bech rahe ho?
       if (holding.qty < tradeQty) {
         return res.status(400).json({ message: `Insufficient quantity! You only have ${holding.qty} shares.` });
       }
 
-      // Stock minus karo
       holding.qty -= tradeQty;
       if (holding.qty === 0) {
         await HoldingsModel.deleteOne({ _id: holding._id });
@@ -226,27 +210,23 @@ app.post("/newOrder", verifyUser, async (req, res) => {
         await holding.save();
       }
 
-      // 💰 Wallet mein paise add karo
       user.balance = (user.balance || 0) + tradeTotalAmount;
       await user.save();
     } 
     
     // 🟢 BUY LOGIC
     else if (req.body.mode === "BUY") {
-      // Validation: Kya wallet mein paise hain?
       if ((user.balance || 0) < tradeTotalAmount) {
         return res.status(400).json({ message: `Insufficient funds! Margin required is ₹${tradeTotalAmount.toFixed(2)} but your balance is ₹${(user.balance || 0).toFixed(2)}.` });
       }
 
-      // 💰 Wallet se paise kaato
       user.balance -= tradeTotalAmount;
       await user.save();
 
-      // Stock ko DB mein add ya update karo
       let holding = await HoldingsModel.findOne({ user: req.userId, name: req.body.name });
       if (holding) {
         holding.qty += tradeQty;
-        holding.price = tradePrice; // Update current price
+        holding.price = tradePrice; 
         await holding.save();
       } else {
         const newHolding = new HoldingsModel({
@@ -260,7 +240,6 @@ app.post("/newOrder", verifyUser, async (req, res) => {
       }
     }
 
-    // Order History Save Karo
     const newOrder = new OrdersModel({
       user: req.userId,
       name: req.body.name,
@@ -275,35 +254,6 @@ app.post("/newOrder", verifyUser, async (req, res) => {
   } catch (error) { 
     console.error("Order Error:", error);
     res.status(500).json({ message: "Error saving order" }); 
-  }
-});
-
-// 🧠 SYNTHESIS ALPHA INTEL - NEWS RECEIVER
-app.post("/api/alpha-intel", async (req, res) => {
-  try {
-    const { title, snippet, url, source } = req.body;
-    
-    // Duplicates rokne ke liye URL check karte hain
-    const existingIntel = await IntelModel.findOne({ url: url });
-    if (existingIntel) {
-      return res.status(200).json({ message: "Intel already exists!" });
-    }
-
-    // Naya data save karo
-    const newIntel = new IntelModel({
-      title,
-      snippet,
-      url,
-      source
-    });
-    
-    await newIntel.save();
-    console.log("🔥 New Alpha Intel Saved:", title);
-    
-    res.status(201).json({ message: "Intel saved successfully!" });
-  } catch (error) {
-    console.error("Alpha Intel Error:", error);
-    res.status(500).json({ message: "Failed to save intel" });
   }
 });
 
