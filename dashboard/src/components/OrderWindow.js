@@ -14,7 +14,6 @@ const OrderWindow = () => {
 
   const handleOrder = async () => {
     try {
-      // ✅ Yahan localhost ki jagah API instance use karo
       await API.post("/newOrder", {
         name: selectedStock.name,
         qty: quantity,
@@ -26,8 +25,12 @@ const OrderWindow = () => {
       closeBuyWindow();
       window.location.reload(); 
     } catch (err) {
-      console.error("Order error:", err); // Console mein error print karalo future debugging ke liye
-      alert("Order failed!");
+      // ✅ Ab generic error ki jagah backend ka actual reason dikhega
+      if (err.response && err.response.data && err.response.data.message) {
+        alert(err.response.data.message);
+      } else {
+        alert("Order failed! Please try again.");
+      }
     }
   };
 
