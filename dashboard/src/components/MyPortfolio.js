@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import API from "../api"; // 🔥 Import the API instance
+import API from "../api"; 
+import axios from "axios"; // 🔥 Axios import kiya AI data ke liye
 import { PieChart, Pie, Cell, LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import "./MyPortfolio.css";
 import html2canvas from 'html2canvas';
@@ -9,12 +10,17 @@ const MyPortfolio = () => {
   const navigate = useNavigate();
   const [data, setData] = useState({ holdings: [], orders: [] });
   const [username, setUsername] = useState("USER");
+  
+  // 🔥 AI Intel ke liye naye states
+  const [intelData, setIntelData] = useState([]);
+  const [loadingIntel, setLoadingIntel] = useState(true);
+  
   const burgundyPalette = ['#800020', '#A52A2A', '#BC4A3C', '#E34234'];
 
+  // Tumhara purana Portfolio API effect
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // 🔥 Using API instance for production-ready calls
         const [profileRes, hRes, oRes] = await Promise.all([
           API.get("/user/profile"),
           API.get("/allHoldings"),
@@ -25,6 +31,24 @@ const MyPortfolio = () => {
       } catch (err) { console.error("Data Fetch Error:", err); }
     };
     fetchData();
+  }, []);
+
+  // 🔥 Naya Effect: Alpha Intel Data Fetch karne ke liye
+  useEffect(() => {
+    const fetchIntel = async () => {
+      try {
+        const response = await axios.get("https://synthesis-backend.onrender.com/api/alpha-intel");
+        setIntelData(response.data.slice(0, 3)); // Sirf top 3 news dikhayenge UI balance ke liye
+        setLoadingIntel(false);
+      } catch (error) {
+        console.error("Error fetching intel:", error);
+        setLoadingIntel(false);
+      }
+    };
+
+    fetchIntel();
+    const interval = setInterval(fetchIntel, 30000); // 30 sec auto-refresh
+    return () => clearInterval(interval);
   }, []);
 
   const metrics = useMemo(() => {
@@ -62,7 +86,6 @@ const MyPortfolio = () => {
           <span className="subtitle">Real-Time Wealth Dashboard</span>
         </div>
         <div className="header-actions no-print">
-          {/* 🔥 Update these URLs with your actual Vercel project links */}
           <button className="download-btn" onClick={() => window.location.href = 'https://synthesis-mmdv.vercel.app'}>HOME</button>
           <button className="download-btn" onClick={() => navigate("/dashboard")}>DASHBOARD</button>
           <button className="download-btn" onClick={handlePrint}>EXPORT REPORT</button>
@@ -106,11 +129,51 @@ const MyPortfolio = () => {
             </div>
           </div>
           
+          {/* 🔥 Dynamic AI Intelligence Panel */}
           <div className="clean-panel">
-            <h4>Synthesis Alpha Intelligence</h4>
-            <div className="news-list" style={{marginTop: '20px'}}>
-               <div className="news-row"><div className="news-accent"></div><div><h5>HDFC Bank Institutional Buying</h5><p>Volume algorithms indicate accumulation patterns.</p></div></div>
-               <div className="news-row"><div className="news-accent"></div><div><h5>IT Sector Rotation</h5><p>Capital flowing into INFY following breakout signals.</p></div></div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <h4>Synthesis Alpha Intelligence</h4>
+              <span style={{ fontSize: '10px', color: '#ff4757', fontWeight: 'bold' }}>● LIVE AI</span>
+            </div>
+            
+            <div className="news-list" style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
+              {loadingIntel ? (
+                <p style={{ fontSize: '12px', color: '#94A3B8' }}>Fetching live AI insights...</p>
+              ) : intelData.length === 0 ? (
+                <p style={{ fontSize: '12px', color: '#94A3B8' }}>No intelligence signals active right now.</p>
+              ) : (
+                intelData.map((intel) => {
+                  // Sentiment ke basis par accent color decide hoga
+                  let accentColor = '#800020'; // Default Burgundy
+                  if (intel.sentiment === "BULLISH") accentColor = '#137333'; // Green
+                  else if (intel.sentiment === "BEARISH") accentColor = '#c5221f'; // Red
+
+                  return (
+                    <div key={intel._id} className="news-row" style={{ display: 'flex', gap: '15px', alignItems: 'flex-start' }}>
+                      <div className="news-accent" style={{ width: '4px', height: '100%', minHeight: '40px', backgroundColor: accentColor, borderRadius: '2px' }}></div>
+                      <div style={{ flex: 1 }}>
+                        <h5 style={{ margin: '0 0 4px 0', fontSize: '13px', lineHeight: '1.4' }}>
+                          <a href={intel.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#1E293B' }}>
+                            {intel.title.length > 60 ? intel.title.substring(0, 60) + "..." : intel.title}
+                            {intel.sentiment === "BULLISH" ? " 🚀" : intel.sentiment === "BEARISH" ? " 📉" : ""}
+                          </a>
+                        </h5>
+                        <p style={{ 
+                          margin: 0, 
+                          fontSize: '11px', 
+                          color: '#64748B',
+                          display: '-webkit-box', 
+                          WebkitLineClamp: 2, 
+                          WebkitBoxOrient: 'vertical', 
+                          overflow: 'hidden' 
+                        }}>
+                          {intel.snippet}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
             </div>
           </div>
         </div>
