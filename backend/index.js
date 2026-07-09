@@ -123,52 +123,37 @@ app.get("/allWatchlist", async (req, res) => {
 });
 
 // 🧠 SYNTHESIS ALPHA INTEL - AI SENTIMENT RECEIVER
-app.post("/api/alpha-intel", async (req, res) => {
-  try {
-    const { title, snippet, url, source } = req.body;
-    
-    // Duplicates rokne ke liye URL check karte hain
-    const existingIntel = await IntelModel.findOne({ url: url });
-    if (existingIntel) {
-      return res.status(200).json({ message: "Intel already exists!" });
-    }
-
-    // AI BRAIN AT WORK 🧠 (Sentiment Analysis)
-    let aiSentiment = "NEUTRAL"; 
+// 2. AI BRAIN AT WORK 🧠 (Sentiment Analysis)
+    let aiSentiment = "NEUTRAL"; // Default value
     try {
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
       
-      const prompt = `You are a professional stock market expert. Read the following news title and snippet, and determine the market sentiment. Reply with EXACTLY ONE WORD from these three options: BULLISH, BEARISH, or NEUTRAL.\n\nTitle: ${title}\nSnippet: ${snippet}`;
+      // Prompt ko aur zyada clear aur strict kar diya hai
+      const prompt = `Analyze the financial news title and snippet below. Determine if the stock market sentiment is BULLISH, BEARISH, or NEUTRAL. You must reply with ONLY ONE WORD from these choices: BULLISH, BEARISH, NEUTRAL. Do not include any punctuation, explanation, or extra spaces.\n\nTitle: ${title}\nSnippet: ${snippet}`;
       
       const result = await model.generateContent(prompt);
       const responseText = result.response.text().trim().toUpperCase();
+      console.log("Raw Gemini Response:", responseText); // Debugging ke liye log
 
-      if (responseText.includes("BULLISH")) aiSentiment = "BULLISH";
-      else if (responseText.includes("BEARISH")) aiSentiment = "BEARISH";
-      else aiSentiment = "NEUTRAL";
+      // Improved matching logic
+      if (responseText.includes("BULLISH")) {
+        aiSentiment = "BULLISH";
+      } else if (responseText.includes("BEARISH")) {
+        aiSentiment = "BEARISH";
+      } else {
+        // Fallback keyword check agar model ne thoda lamba ya alag word diya ho
+        if (title.toLowerCase().includes("surge") || title.toLowerCase().includes("jump") || title.toLowerCase().includes("profit") || title.toLowerCase().includes("record")) {
+          aiSentiment = "BULLISH";
+        } else if (title.toLowerCase().includes("loss") || title.toLowerCase().includes("crash") || title.toLowerCase().includes("fall") || title.toLowerCase().includes("slump")) {
+          aiSentiment = "BEARISH";
+        } else {
+          aiSentiment = "NEUTRAL";
+        }
+      }
       
     } catch (aiError) {
       console.error("AI Analysis failed, using default NEUTRAL:", aiError);
     }
-
-    // Naya data (with Sentiment) Save karo
-    const newIntel = new IntelModel({
-      title,
-      snippet,
-      url,
-      source,
-      sentiment: aiSentiment
-    });
-    
-    await newIntel.save();
-    console.log(`🔥 New Alpha Intel Saved: ${title} | Sentiment: 🤖 ${aiSentiment}`);
-    
-    res.status(201).json({ message: "Intel and AI Sentiment saved successfully!" });
-  } catch (error) {
-    console.error("Alpha Intel Error:", error);
-    res.status(500).json({ message: "Failed to save intel" });
-  }
-});
 
 // 📡 SYNTHESIS ALPHA INTEL - SEND DATA TO FRONTEND
 app.get("/api/alpha-intel", async (req, res) => {
