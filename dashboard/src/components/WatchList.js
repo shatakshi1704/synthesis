@@ -22,9 +22,6 @@ const WatchList = () => {
 
   const handleRefresh = async () => {
     try {
-      // ❌ await API.get("/refreshWatchlist"); <-- Isko hata do, iski wajah se code break ho raha tha
-      
-      // ✅ Sirf fetchData call karo. Yeh /allWatchlist ko hit karega aur naye prices le aayega.
       await fetchData(); 
     } catch (err) { 
       console.error("Refresh Error:", err); 

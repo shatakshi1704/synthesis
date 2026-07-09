@@ -31,7 +31,10 @@ const allowedOrigins = [
 app.use(cookieParser());
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+    // !origin -> Postman wagerah allow karta hai
+    // allowedOrigins -> Tumhara frontend allow karta hai
+    // origin.startsWith('chrome-extension://') -> Tumhara naya extension allow karega
+    if (!origin || allowedOrigins.indexOf(origin) !== -1 || origin.startsWith('chrome-extension://')) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
