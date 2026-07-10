@@ -139,23 +139,18 @@ app.post("/api/assistant", async (req, res) => {
     const { message } = req.body;
     
     if (!message) {
-      return res.status(400).json({ reply: "Message content cannot be empty." });
+      return res.status(400).json({ reply: "Please enter a valid question." });
     }
 
-    // Optional: Extract user identification from cookies or headers if available
-    // const userId = req.cookies?.userId || req.headers?.userid;
-    
-    // Fetch context from database safely with fallbacks
-    // const user = userId ? await UserModel.findById(userId) : null;
-    // const holdings = userId ? await HoldingsModel.find({ user: userId }) : [];
     const latestIntel = await IntelModel.find({}).sort({ date: -1 }).limit(3);
 
     const context = `
-      Latest Market Intel: ${JSON.stringify(latestIntel)}
+      Platform: Synthesis (Financial portfolio tracker, market watch, and trading guide).
+      Latest Market Intel Signals: ${JSON.stringify(latestIntel)}
     `;
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    const prompt = `You are a helpful assistant for a portfolio and trading website called Synthesis. Use the following context about the market to answer the user's question politely and accurately in a concise conversational tone.\n\nContext:\n${context}\n\nUser Question: ${message}`;
+    const prompt = `You are an elite, highly intelligent financial and platform AI assistant for Synthesis. Give expert, precise, clear, and direct answers regarding stock searching, buying/selling mechanics, market psychology, and portfolio allocation based on the context provided. Keep it concise and professional.\n\nContext:\n${context}\n\nUser Question: ${message}`;
 
     const result = await model.generateContent(prompt);
     const reply = result.response.text();
@@ -163,7 +158,7 @@ app.post("/api/assistant", async (req, res) => {
     res.json({ reply });
   } catch (error) {
     console.error("Assistant Backend Error:", error);
-    res.status(500).json({ reply: "An internal server error occurred while generating the response." });
+    res.status(500).json({ reply: "I'm having trouble connecting to the intelligence core right now. Please try again shortly." });
   }
 });
 
