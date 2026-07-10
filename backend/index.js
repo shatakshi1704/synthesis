@@ -123,7 +123,6 @@ app.get("/allWatchlist", async (req, res) => {
 });
 
 // Ensure CORS is set up at the top of your server file (before routes)
-const cors = require('cors');
 app.use(cors({
   origin: [
     "https://synthesis-peach.vercel.app", 

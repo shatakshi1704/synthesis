@@ -9,13 +9,13 @@
 .assistant-toggle-btn {
   background-color: #810B38;
   color: #F1E2D1;
-  border: 1px solid #541A1A;
+  border: 1px solid #DCC3AA;
   padding: 12px 20px;
   border-radius: 9999px;
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(129, 11, 56, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   transition: all 0.2s ease;
 }
 
@@ -26,13 +26,13 @@
 .assistant-chat-box {
   width: 360px;
   height: 480px;
-  background: #1a080e;
+  background: #0f0408;
   border-radius: 12px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid #541A1A;
+  border: 1px solid #810B38;
   color: #F1E2D1;
 }
 
@@ -73,7 +73,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  background: #0f0408;
+  background: #090204;
 }
 
 .message {
@@ -92,8 +92,9 @@
 }
 
 .message.user {
-  background: #810B38;
-  color: #F1E2D1;
+  background: #F1E2D1;
+  color: #0f0408;
+  font-weight: 500;
   align-self: flex-end;
 }
 
@@ -116,7 +117,7 @@
 }
 
 .assistant-input-form input:focus {
-  border-color: #810B38;
+  border-color: #DCC3AA;
 }
 
 .assistant-input-form button {
