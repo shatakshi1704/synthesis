@@ -23,8 +23,6 @@ function ProductsPage() {
         productDesription="Deep-dive into your portfolio performance. Visualize your gains, track your risk exposure, and get clear, actionable insights into your financial habits."
         learnMore="#"
       />
-
-      // Add this below your Insights Dashboard RightSection in ProductsPage.jsx
 <LeftSection
   imageURL="media/images/extension.png" // Screenshot of your extension/popup interface
   productName="Synthesis Extension"
