@@ -1,4 +1,3 @@
-// 1. Floating Badge Injector Function
 const showFloatingBadge = (sentiment) => {
   const existingBadge = document.getElementById("synthesis-alpha-badge");
   if (existingBadge) existingBadge.remove();
@@ -36,7 +35,6 @@ const showFloatingBadge = (sentiment) => {
   document.body.appendChild(badge);
 };
 
-// 2. Extract & Trigger Logic
 const extractData = () => {
   const url = window.location.href;
   const source = window.location.hostname;
@@ -55,7 +53,6 @@ const extractData = () => {
   if (title && snippetText) {
     const lowerTitle = title.toLowerCase();
     
-    // Quick local sentiment calculation for immediate floating badge
     let localSentiment = "NEUTRAL";
     if (lowerTitle.includes("surge") || lowerTitle.includes("jump") || lowerTitle.includes("surges") || lowerTitle.includes("profit") || lowerTitle.includes("record") || lowerTitle.includes("dividend")) {
       localSentiment = "BULLISH";
@@ -63,7 +60,6 @@ const extractData = () => {
       localSentiment = "BEARISH";
     }
 
-    // Turant screen par badge dikhao
     showFloatingBadge(localSentiment);
 
     const newsData = {

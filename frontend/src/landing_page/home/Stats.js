@@ -118,7 +118,7 @@ function Stats() {
 
       <div className={`row align-items-center scroll-reveal ${isVisible ? 'is-visible' : ''}`}>
         
-        {/* Left Side: Copywriting */}
+
         <div className="col-lg-5 mb-5 mb-lg-0 pe-lg-5">
           <h2 className="display-6 fw-bold mb-5" style={{ color: "#541A1A", letterSpacing: "-1px" }}>
             Everything you need. <br/>Nothing you don't.
@@ -152,17 +152,17 @@ function Stats() {
           </div>
         </div>
 
-        {/* Right Side: Animated Orbital Ecosystem Graphic */}
+
         <div className="col-lg-7">
           <div className="orbital-system">
             
-            {/* Background Data Lines */}
+    
             <svg style={{ position: "absolute", width: "100%", height: "100%", zIndex: 0 }}>
               <line x1="50%" y1="50%" x2="80%" y2="20%" stroke="#810B38" strokeWidth="1.5" strokeDasharray="4 4" opacity="0.3" style={{ animation: "data-flow 1s linear infinite" }} />
               <line x1="50%" y1="50%" x2="15%" y2="60%" stroke="#810B38" strokeWidth="1.5" strokeDasharray="4 4" opacity="0.3" style={{ animation: "data-flow 1s linear infinite reverse" }} />
             </svg>
 
-            {/* Central Core */}
+
             <div style={{ 
               width: "100px", height: "100px", borderRadius: "50%", backgroundColor: "#810B38", 
               color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", 
@@ -172,14 +172,14 @@ function Stats() {
               CORE
             </div>
 
-            {/* Inner Ring (Fastest) */}
+    
             <div className="orbit-ring inner">
               <div className="orbit-node" style={{ top: "-15px", left: "50%", transform: "translateX(-50%)" }}>
                 Equities
               </div>
             </div>
 
-            {/* Middle Ring (Reverse direction) */}
+          
             <div className="orbit-ring middle">
               <div className="orbit-node" style={{ top: "40%", right: "-35px", transform: "translateY(-50%)" }}>
                 Market Data
@@ -189,7 +189,7 @@ function Stats() {
               </div>
             </div>
 
-            {/* Outer Ring (Slowest) */}
+      
             <div className="orbit-ring outer">
               <div className="orbit-node" style={{ top: "20%", left: "-10px" }}>
                 Watchlists

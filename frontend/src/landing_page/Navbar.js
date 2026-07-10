@@ -7,27 +7,27 @@ function Navbar() {
   const navigate = useNavigate();
 
   const Logout = () => {
-    // Cookie remove karte waqt path sahi hona zaruri hai
+   
     removeCookie("token", { path: "/" });
     navigate("/");
-    // Page reload zaroori hai taaki state update ho jaye
+  
     window.location.reload();
   };
 
   return (
     <nav className="navbar navbar-expand-lg border-bottom py-3" style={{ backgroundColor: "#FFFFFF" }}>
       <div className="container">
-        {/* Logo */}
+
         <Link className="navbar-brand" to="/">
           <img src="media/images/fulllogo.png" alt="Synthesis Logo" style={{ width: "200px" }} />
         </Link>
         
-        {/* Toggle Button for Mobile */}
+    
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* Links */}
+
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto align-items-center gap-4">
             <li className="nav-item"><Link className="nav-link text-dark" to="/about">About</Link></li>
@@ -35,7 +35,7 @@ function Navbar() {
             <li className="nav-item"><Link className="nav-link text-dark" to="/pricing">Pricing</Link></li>
             <li className="nav-item"><Link className="nav-link text-dark" to="/support">Support</Link></li>
             
-            {/* Conditional Rendering */}
+
             {cookies.token ? (
               <>
                 <li className="nav-item">

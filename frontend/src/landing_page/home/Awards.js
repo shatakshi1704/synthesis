@@ -107,29 +107,28 @@ function Awards() {
 
       <div className={`row align-items-center scroll-reveal ${isVisible ? 'is-visible' : ''}`}>
         
-        {/* Left Side: Animated Data Core Graphic */}
         <div className="col-lg-5 text-center mb-5 mb-lg-0">
           <div style={{ position: "relative", width: "100%", maxWidth: "400px", margin: "0 auto" }}>
             <svg viewBox="0 0 400 400" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-              {/* Background Glow */}
+
               <circle cx="200" cy="200" r="160" fill="#F1E2D1" opacity="0.4" />
               
-              {/* Outer Dashed Orbit */}
+              
               <circle cx="200" cy="200" r="140" fill="none" stroke="#DCC3AA" strokeWidth="2" strokeDasharray="8 12" className="svg-spin" />
               
-              {/* Inner Solid Orbit */}
+         
               <circle cx="200" cy="200" r="110" fill="none" stroke="#541A1A" strokeWidth="1" opacity="0.5" />
               <circle cx="200" cy="200" r="100" fill="none" stroke="#810B38" strokeWidth="3" className="svg-spin-reverse" strokeDasharray="150 50" />
               
-              {/* Central Shield/Core Geometric Design */}
+     
               <polygon points="200,90 290,200 200,310 110,200" fill="#541A1A" opacity="0.9" />
               <polygon points="200,120 260,200 200,280 140,200" fill="#810B38" />
               
-              {/* Pulsing Energy Core */}
+        
               <circle cx="200" cy="200" r="24" fill="#FFFFFF" className="svg-pulse" />
               <circle cx="200" cy="200" r="12" fill="#810B38" />
               
-              {/* Connecting Nodes */}
+
               <line x1="200" y1="20" x2="200" y2="90" stroke="#DCC3AA" strokeWidth="2" />
               <line x1="200" y1="310" x2="200" y2="380" stroke="#DCC3AA" strokeWidth="2" />
               <circle cx="200" cy="20" r="6" fill="#810B38" />
@@ -138,7 +137,7 @@ function Awards() {
           </div>
         </div>
 
-        {/* Right Side: Text & Features */}
+
         <div className="col-lg-7 ps-lg-5">
           <div style={{ display: "inline-block", backgroundColor: "#F1E2D1", color: "#810B38", padding: "6px 16px", borderRadius: "20px", fontSize: "0.85rem", fontWeight: "700", letterSpacing: "1px", marginBottom: "1.5rem" }}>
             ENGINEERED FOR RELIABILITY
@@ -150,7 +149,7 @@ function Awards() {
             We built a fast, reliable trading engine from the ground up to give retail investors seamless execution and clear data without the bloat.
           </p>
 
-          {/* Feature List */}
+   
           <div className="row mb-5 fs-5" style={{ fontWeight: "500" }}>
             <div className="col-sm-6">
               <ul className="list-unstyled">
@@ -168,7 +167,7 @@ function Awards() {
             </div>
           </div>
 
-          {/* Security & Trust Badges */}
+
           <div className="d-flex align-items-center flex-wrap gap-4 mt-4 pt-4 border-top" style={{ borderColor: "#DCC3AA" }}>
             <span className="security-badge">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>

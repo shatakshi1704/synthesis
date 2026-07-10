@@ -3,7 +3,6 @@ import React from "react";
 function Hero() {
   return (
     <div className="container text-center mt-5 mb-5 pb-5 position-relative overflow-visible">
-      {/* CSS Keyframes for floating UI cards and text */}
       <style>
         {`
           @keyframes float-slow {
@@ -113,12 +112,12 @@ function Hero() {
       <div className="row justify-content-center">
         <div className="col-lg-10">
           
-          {/* Pure CSS Floating Dashboard Graphic */}
+
           <div className="hero-graphic-container">
-            {/* Background Card */}
+
             <div className="ui-card-back"></div>
             
-            {/* Side Card with animated data bars */}
+
             <div className="ui-card-side">
               <div className="mini-bar" style={{ height: "40%" }}></div>
               <div className="mini-bar" style={{ height: "70%" }}></div>
@@ -126,7 +125,7 @@ function Hero() {
               <div className="mini-bar" style={{ height: "90%", backgroundColor: "#F1E2D1" }}></div>
             </div>
             
-            {/* Main Center Card with SVG Chart */}
+
             <div className="ui-card-main">
               <svg width="100%" height="80" viewBox="0 0 200 80" preserveAspectRatio="none">
                 <path 
@@ -146,17 +145,17 @@ function Hero() {
             </div>
           </div>
           
-          {/* Animated Heading */}
+
           <h1 className="display-3 fw-bold animate-fade-1 text-dark" style={{ letterSpacing: "-1.5px" }}>
             Synthesize your wealth.
           </h1>
           
-          {/* Animated Subtitle */}
+
           <p className="lead text-muted mt-3 mb-5 animate-fade-2" style={{ fontSize: "1.25rem", fontWeight: "400", maxWidth: "600px", margin: "0 auto" }}>
             The intelligent platform to execute trades, manage derivatives, and build your financial future.
           </p>
           
-          {/* Call-to-Action Button */}
+ 
           <div className="animate-fade-3">
             <a 
               href="/signup"

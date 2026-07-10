@@ -4,18 +4,14 @@ function Team() {
   return (
     <div className="container py-5 mb-5">
       <div className="row justify-content-center">
-        {/* Section Header */}
         <div className="col-12 text-center mb-5">
           <h2 className="display-5 fw-bold" style={{ color: "#541A1A" }}>The Founder</h2>
           <div style={{ width: "60px", height: "4px", backgroundColor: "#810B38", margin: "20px auto" }}></div>
         </div>
-
-        {/* Profile Card */}
         <div className="col-lg-8">
           <div className="p-5 shadow-sm" style={{ backgroundColor: "#FFFFFF", borderRadius: "24px", border: "1px solid #F1E2D1" }}>
             <div className="row align-items-center">
-              
-              {/* Profile Image - UPDATE THE SRC PATH BELOW */}
+
               <div className="col-md-4 text-center mb-4 mb-md-0">
                 <div style={{ 
                   width: "180px", 
@@ -26,7 +22,6 @@ function Team() {
                   overflow: "hidden",
                   border: "4px solid #F1E2D1"
                 }}>
-                  {/* INSERT YOUR PHOTO PATH HERE */}
                   <img 
                     src="media/images/myphoto.png" 
                     alt="Shatakshi Sinha" 
@@ -35,7 +30,6 @@ function Team() {
                 </div>
               </div>
 
-              {/* Bio Details */}
               <div className="col-md-8">
                 <h3 className="fw-bold mb-2" style={{ color: "#541A1A" }}>Shatakshi Sinha</h3>
                 <h5 className="mb-4" style={{ color: "#810B38" }}>NSUT</h5>

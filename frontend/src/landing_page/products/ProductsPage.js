@@ -7,24 +7,24 @@ function ProductsPage() {
   return (
     <>
       <Hero />
-      {/* Feature 1: The Core Terminal */}
+
       <LeftSection
-        imageURL="media/images/kite.png" // Update this to your screenshot
+        imageURL="media/images/kite.png" 
         productName="Synthesis Terminal"
         productDesription="A single-interface platform for all your trading needs. Real-time market data, lightning-fast order execution, and integrated risk management."
         tryDemo="#"
         learnMore="#"
       />
       
-      {/* Feature 2: Portfolio Analysis */}
+
       <RightSection
-        imageURL="media/images/console.png" // Update this to your dashboard screenshot
+        imageURL="media/images/console.png"
         productName="Insights Dashboard"
         productDesription="Deep-dive into your portfolio performance. Visualize your gains, track your risk exposure, and get clear, actionable insights into your financial habits."
         learnMore="#"
       />
 <LeftSection
-  imageURL="media/images/extension.png" // Screenshot of your extension/popup interface
+  imageURL="media/images/extension.png"
   productName="Synthesis Extension"
   productDesription="Keep a pulse on the markets without leaving your current tab. Execute quick trades and view live asset alerts right from your browser toolbar."
   tryDemo="#"

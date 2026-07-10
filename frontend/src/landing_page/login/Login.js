@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import api from '../../api'; // 🔥 Import the production-ready API instance
+import api from '../../api'; 
 
 const Login = () => {
   const [inputValue, setInputValue] = useState({
@@ -16,12 +16,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // 🔥 Using API instance
+
       const { data } = await api.post("/login", { ...inputValue });
       
       const { success, message } = data;
       if (success) {
-        // 🔥 Redirect to your live Dashboard Vercel URL
+    
         window.location.href = "https://synthesis-peach.vercel.app";
       } else {
         alert(message);

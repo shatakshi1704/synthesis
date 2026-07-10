@@ -9,10 +9,8 @@ function Footer() {
       <div className="container py-5">
         <div className="row mt-4">
           
-          {/* Column 1: Brand */}
           <div className="col-lg-3 mb-4">
             <a className="navbar-brand d-flex align-items-center" href="/">
-          {/* Adjust the width as needed depending on your exact image resolution */}
           <img
             src="media/images/letterlogo.png"
             alt="Synthesis Logo"
@@ -25,7 +23,7 @@ function Footer() {
             </p>
           </div>
 
-          {/* Column 2: Company */}
+ 
           <div className="col-lg-3 mb-4">
             <p style={headerStyle}>Company</p>
             <a href="/about" style={linkStyle}>About</a><br />
@@ -33,7 +31,7 @@ function Footer() {
             <a href="/press" style={linkStyle}>Press</a><br />
           </div>
 
-          {/* Column 3: Support */}
+
           <div className="col-lg-3 mb-4">
             <p style={headerStyle}>Support</p>
             <a href="/contact" style={linkStyle}>Contact</a><br />
@@ -41,7 +39,7 @@ function Footer() {
             <a href="/status" style={linkStyle}>System Status</a><br />
           </div>
 
-          {/* Column 4: Account */}
+    
           <div className="col-lg-3 mb-4">
             <p style={headerStyle}>Account</p>
             <a href="/signup" style={linkStyle}>Open an account</a><br />
@@ -49,7 +47,6 @@ function Footer() {
           </div>
         </div>
 
-        {/* Legal Disclaimer */}
         <div className="mt-5 pt-4 border-top" style={{ fontSize: "12px", color: "#541A1A", opacity: "0.5" }}>
           <p>
             Synthesis Financial Technologies is a technology-first platform. Investments in the securities market are subject to market risks; 

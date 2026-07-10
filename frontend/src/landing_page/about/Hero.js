@@ -3,7 +3,6 @@ import React from "react";
 function Hero() {
   return (
     <div className="container py-5">
-      {/* Editorial Headline */}
       <div className="row justify-content-center mt-5 mb-5">
         <div className="col-lg-10 text-center">
           <h1 className="display-4 fw-bold mb-4" style={{ color: "#541A1A", letterSpacing: "-1.5px" }}>
@@ -13,7 +12,6 @@ function Hero() {
         </div>
       </div>
 
-      {/* Modular Story Cards */}
       <div className="row g-4 mt-4">
         <div className="col-lg-6">
           <div className="p-5" style={{ backgroundColor: "#F1E2D1", borderRadius: "20px", height: "100%" }}>
@@ -34,7 +32,6 @@ function Hero() {
         </div>
       </div>
 
-      {/* Bottom Mission Statement */}
       <div className="row mt-5 py-5 text-center">
         <div className="col-lg-8 mx-auto">
           <p className="lead" style={{ color: "#810B38", fontWeight: "600" }}>

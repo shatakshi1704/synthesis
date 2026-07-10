@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import api from '../../api'; // 🔥 Import the centralized API instance
+import api from '../../api'; 
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -20,8 +20,6 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // 🔥 Using API instance instead of axios
-      // BaseURL aur withCredentials yahan se automatic apply honge
       const { data } = await api.post("/signup", { ...inputValue });
 
       const { success, message } = data;

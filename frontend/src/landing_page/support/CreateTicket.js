@@ -1,4 +1,4 @@
-// Update your CreateTicket.jsx component to connect with the backend
+
 import React, { useState } from "react";
 
 function CreateTicket() {

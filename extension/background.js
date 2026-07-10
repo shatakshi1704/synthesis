@@ -1,5 +1,4 @@
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  // Direct message object check kar rahe hain (kyunki content.js direct bhej raha hai)
   if (message.title && message.url) {
     console.log("Background received data:", message);
 
