@@ -479,14 +479,11 @@ The application utilizes a decoupled deployment architecture:
   &nbsp;
   <img src="frontend/public/media/images/16.png" alt="Small View 3" width="32%">
 </p>
----
 
 ## Author
 
-**Shatakshi**
+**Shatakshi Sinha**
 
 * GitHub: [@shatakshi1704](https://www.google.com/search?q=https://github.com/shatakshi1704)
 
-```
 
-```
