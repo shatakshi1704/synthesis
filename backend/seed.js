@@ -4,7 +4,6 @@ const { HoldingsModel } = require("./model/HoldingsModel");
 const { WatchlistModel } = require("./model/WatchlistModel");
 const { faker } = require('@faker-js/faker');
 
-// 1. Apni actual user _id Compass se copy karke yahan paste karo
 const MY_USER_ID = "6a2d948edf2c2a6e11a24069"; 
 
 const seedHoldings = [
@@ -18,12 +17,10 @@ async function seedDB() {
     await mongoose.connect(process.env.MONGO_URL);
     console.log("Connected to MongoDB...");
 
-    // Seed Holdings
     await HoldingsModel.deleteMany({ user: MY_USER_ID }); 
     await HoldingsModel.insertMany(seedHoldings);
     console.log("Holdings seeded successfully!");
 
-    // Seed Watchlist (Fixed: faker.string.alpha method used)
     await WatchlistModel.deleteMany({});
     const watchlist = Array.from({ length: 10 }, () => ({
       name: faker.string.alpha({ length: 4, casing: 'upper' }), 

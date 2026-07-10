@@ -6,11 +6,11 @@ const OrdersSchema = new Schema({
   price: Number,
   mode: String,
   user: {
-    type: Schema.Types.ObjectId, // 🔥 Yeh field add karna mandatory hai
+    type: Schema.Types.ObjectId, 
     ref: "User",
   },
 });
 
-const OrdersModel = model("order", OrdersSchema); // Yahan model define karo
+const OrdersModel = model("order", OrdersSchema); 
 
 module.exports = { OrdersModel };

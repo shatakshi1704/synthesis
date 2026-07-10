@@ -2,12 +2,9 @@ const User = require("../model/UserModel");
 const { createSecretToken } = require("../util/SecretToken");
 const bcrypt = require("bcryptjs");
 
-// SIGNUP ROUTE
 module.exports.Signup = async (req, res, next) => {
   try {
     const { email, password, username } = req.body;
-    
-    // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.json({ message: "User already exists" });
@@ -18,7 +15,6 @@ module.exports.Signup = async (req, res, next) => {
 
     const token = createSecretToken(user._id);
 
-    // Cookie set in Signup too
     res.cookie("token", token, {
       path: "/",
       httpOnly: true,
@@ -38,7 +34,6 @@ module.exports.Signup = async (req, res, next) => {
   }
 };
 
-// LOGIN ROUTE
 module.exports.Login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -59,10 +54,9 @@ module.exports.Login = async (req, res, next) => {
 
     const token = createSecretToken(user._id);
 
-    // PRODUCTION COOKIE SETTINGS
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,           // Ensures transmission over HTTPS
+      secure: true,    
       sameSite: "none",  
       path: "/"     
     });

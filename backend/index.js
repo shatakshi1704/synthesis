@@ -8,8 +8,6 @@ const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const { faker } = require('@faker-js/faker');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-
-// MODELS
 const { HoldingsModel } = require("./model/HoldingsModel");
 const { PositionsModel } = require("./model/PositionsModel");
 const { OrdersModel } = require("./model/OrdersModel");
@@ -18,16 +16,13 @@ const { WatchlistModel } = require("./model/WatchlistModel");
 const IntelModel = require("./model/IntelModel");
 const TicketModel = require("./model/TicketModel");
 
-// AI INITIALIZATION 🧠
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const app = express();
 
-// 1. DYNAMIC PORT FOR RENDER
 const PORT = process.env.PORT || 3002;
 const uri = process.env.MONGO_URL;
 
-// 2. PRODUCTION CORS SETUP
 const allowedOrigins = [
   "https://synthesis-mmdv.vercel.app", 
   "https://synthesis-peach.vercel.app", 
@@ -54,7 +49,6 @@ app.options(/.*/, cors(corsOptions));
 
 app.use(bodyParser.json());
 
-// 🛡️ SECURITY LAYER
 const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
   if (!token) return res.status(401).json({ message: "Unauthorized" });
@@ -66,7 +60,6 @@ const verifyUser = (req, res, next) => {
   });
 };
 
-// 🔒 SECURE PROFILE ROUTE
 app.get("/user/profile", verifyUser, async (req, res) => {
   try {
     const user = await UserModel.findById(req.userId);
@@ -77,7 +70,6 @@ app.get("/user/profile", verifyUser, async (req, res) => {
   }
 });
 
-// 🔒 DATA ROUTES
 app.get("/allHoldings", verifyUser, async (req, res) => {
   try {
     const allHoldings = await HoldingsModel.find({ user: req.userId });
@@ -99,7 +91,6 @@ app.get("/allPositions", verifyUser, async (req, res) => {
   } catch (error) { res.status(500).json({ message: "Server Error" }); }
 });
 
-// 📈 WATCHLIST (WITH DYNAMIC FAKER PRICES)
 app.get("/allWatchlist", async (req, res) => {
   try {
     const allStocks = await WatchlistModel.find({}).lean();
@@ -146,7 +137,6 @@ app.post("/api/tickets", async (req, res) => {
   }
 });
 
-// Ensure CORS is set up at the top of your server file (before routes)
 app.use(cors({
   origin: [
     "https://synthesis-peach.vercel.app", 
@@ -157,7 +147,6 @@ app.use(cors({
   credentials: true
 }));
 
-// The Assistant API Endpoint
 app.post("/api/assistant", async (req, res) => {
   try {
     const { message } = req.body;
@@ -173,7 +162,6 @@ app.post("/api/assistant", async (req, res) => {
       Latest Market Intel Signals: ${JSON.stringify(latestIntel)}
     `;
 
-    // Use a verified current model ID like gemini-2.0-flash or gemini-1.5-flash
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" }); 
     const prompt = `You are an elite, highly intelligent financial and platform AI assistant for Synthesis. Give expert, precise, clear, and direct answers regarding stock searching, buying/selling mechanics, market psychology, and portfolio allocation based on the context provided. Keep it concise and professional.\n\nContext:\n${context}\n\nUser Question: ${message}`;
 
@@ -187,7 +175,6 @@ app.post("/api/assistant", async (req, res) => {
   }
 });
 
-// 🧠 SYNTHESIS ALPHA INTEL - AI SENTIMENT RECEIVER (FIXED ROUTE WRAPPER)
 app.post("/api/alpha-intel", async (req, res) => {
   try {
     const { title, snippet, url, source } = req.body;
@@ -199,14 +186,12 @@ app.post("/api/alpha-intel", async (req, res) => {
 
     let aiSentiment = "NEUTRAL"; 
     
-    // 🔥 Sabse pehle keyword-based aggressive override lagate hain
     const lowerTitle = title.toLowerCase();
     if (lowerTitle.includes("surge") || lowerTitle.includes("jump") || lowerTitle.includes("surges") || lowerTitle.includes("profit") || lowerTitle.includes("record") || lowerTitle.includes("dividend")) {
       aiSentiment = "BULLISH";
     } else if (lowerTitle.includes("loss") || lowerTitle.includes("crash") || lowerTitle.includes("fall") || lowerTitle.includes("slump") || lowerTitle.includes("tanks")) {
       aiSentiment = "BEARISH";
     } else {
-      // Agar upar ke words match na hon, tab AI se poochho
       try {
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
         const prompt = `Analyze the financial news title and snippet below. Determine if the stock market sentiment is BULLISH, BEARISH, or NEUTRAL. Reply with ONLY ONE WORD: BULLISH, BEARISH, NEUTRAL.\n\nTitle: ${title}\nSnippet: ${snippet}`;
@@ -240,7 +225,6 @@ app.post("/api/alpha-intel", async (req, res) => {
   }
 });
 
-// 📡 SYNTHESIS ALPHA INTEL - SEND DATA TO FRONTEND
 app.get("/api/alpha-intel", async (req, res) => {
   try {
     const allIntels = await IntelModel.find({}).sort({ date: -1 });
@@ -251,7 +235,6 @@ app.get("/api/alpha-intel", async (req, res) => {
   }
 });
 
-// 💸 NEW ORDER (WITH WALLET & SELL LOGIC)
 app.post("/newOrder", verifyUser, async (req, res) => {
   try {
     const tradeQty = parseInt(req.body.qty);

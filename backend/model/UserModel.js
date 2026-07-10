@@ -4,8 +4,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: [true, "Email is required"], unique: true },
   username: { type: String, required: [true, "Username is required"] },
   password: { type: String, required: [true, "Password is required"] },
-  createdAt: { type: Date, default: Date.now }, // Date.now function pass karo
+  createdAt: { type: Date, default: Date.now },
 });
 
-// 🔥 Yahan default export use karo
 module.exports = mongoose.model("User", userSchema);

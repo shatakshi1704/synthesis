@@ -1,4 +1,4 @@
-// model/IntelModel.js
+
 const mongoose = require("mongoose");
 
 const IntelSchema = new mongoose.Schema({
@@ -6,7 +6,7 @@ const IntelSchema = new mongoose.Schema({
   snippet: String,
   url: String,
   source: String,
-  sentiment: { type: String, default: "NEUTRAL" }, // 🔴 Yeh nayi line add karni hai
+  sentiment: { type: String, default: "NEUTRAL" },
   date: { type: Date, default: Date.now }
 });
 
