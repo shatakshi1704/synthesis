@@ -16,7 +16,7 @@ const { OrdersModel } = require("./model/OrdersModel");
 const UserModel = require("./model/UserModel");
 const { WatchlistModel } = require("./model/WatchlistModel");
 const IntelModel = require("./model/IntelModel");
-const TicketModel = require('./models/TicketModel');
+const TicketModel = require("./model/TicketModel");
 
 // AI INITIALIZATION 🧠
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
