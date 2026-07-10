@@ -13,7 +13,7 @@ A scalable, full-stack financial management platform featuring real-time portfol
 [![Gemini API](https://img.shields.io/badge/Google_Gemini-AI-orange?style=flat-square)](https://deepmind.google/technologies/gemini/)
 [![Chrome Extension](https://img.shields.io/badge/Manifest_V3-Extension-yellow?style=flat-square)](https://developer.chrome.com/docs/extensions/)
 
-[View Live Web Dashboard](https://synthesis-peach.vercel.app/)
+[View Live Web Dashboard](https://synthesis-mmdv.vercel.app/)
 
 ---
 
