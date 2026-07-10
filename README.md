@@ -97,7 +97,7 @@ synthesis/
 │   ├── controllers/
 │   │   └── AuthController.js
 │   ├── middleware/
-│   │   └── authMiddleware.js            # JWT verification & IDOR protection
+│   │   └── authMiddleware.js
 │   ├── model/                           # Mongoose Models
 │   │   ├── HoldingsModel.js
 │   │   ├── IntelModel.js
@@ -109,31 +109,108 @@ synthesis/
 │   ├── routes/
 │   │   └── AuthRoute.js
 │   ├── schemas/                         # DB Validation Schemas
+│   │   ├── HoldingsSchema.js
+│   │   ├── OrdersSchema.js
+│   │   └── PositionsSchema.js
 │   ├── util/
+│   ├── .gitignore
 │   ├── index.js                         # Server entry point
+│   ├── package.json
 │   └── seed.js                          # Database seeder
 ├── dashboard/                           # React Frontend (Main App Interface)
 │   ├── public/
+│   │   ├── index.html
+│   │   ├── letterlogo.png
+│   │   ├── logo.png
+│   │   ├── manifest.json
+│   │   └── robots.txt
 │   └── src/
 │       ├── components/                  # UI Modules (Holdings, Orders, Charts)
+│       │   ├── Apps.js
 │       │   ├── Dashboard.js
 │       │   ├── DoughnutChart.js
+│       │   ├── Funds.js
+│       │   ├── GeneralContext.js
 │       │   ├── Holdings.js
+│       │   ├── Home.js
+│       │   ├── Menu.js
+│       │   ├── MyPortfolio.css
+│       │   ├── MyPortfolio.js
+│       │   ├── OrderWindow.css
 │       │   ├── OrderWindow.js
+│       │   ├── Orders.js
+│       │   ├── PortfolioAssistant.css
 │       │   ├── PortfolioAssistant.js
+│       │   ├── Positions.js
 │       │   ├── Summary.js
-│       │   └── WatchList.js
+│       │   ├── TopBar.js
+│       │   ├── VerticalGraph.js
+│       │   ├── WatchList.js
+│       │   └── Welcome.js
 │       ├── ProtectedRoute.js            # Route authorization wrapper
-│       └── api.js                       # Axios instance configurations
+│       ├── api.js                       # Axios instance configurations
+│       ├── index.css
+│       └── index.js
 ├── extension/                           # Chrome Extension (Manifest V3)
 │   ├── background.js                    # Ephemeral Service Worker
 │   ├── content.js                       # Web scraper / DOM interaction
 │   └── manifest.json                    # Extension permissions blueprint
 └── frontend/                            # React Frontend (Marketing/Landing Page)
     ├── public/
-    │   └── media/images/                # Static brand assets (kite.png, logo.png)
+    │   ├── font-awesome-4.7.0/
+    │   ├── media/images/                
+    │   │   ├── console.png
+    │   │   ├── extension.png
+    │   │   ├── fulllogo.png
+    │   │   ├── kite.png
+    │   │   ├── letterlogo.png
+    │   │   ├── logo.png
+    │   │   ├── manifest.json
+    │   │   └── myphoto.png
+    │   ├── index.html
+    │   ├── logo.png
+    │   ├── manifest.json
+    │   └── robots.txt
     └── src/
-
+        ├── landing_page/
+        │   ├── about/                   # About Us Page Components
+        │   │   ├── AboutPage.js
+        │   │   ├── Hero.js
+        │   │   └── Team.js
+        │   ├── home/                    # Landing Page Modules
+        │   │   ├── Awards.js
+        │   │   ├── Education.js
+        │   │   ├── Hero.js
+        │   │   ├── HomePage.js
+        │   │   ├── Pricing.js
+        │   │   └── Stats.js
+        │   ├── login/                   # Authentication (Sign In)
+        │   │   └── Login.js
+        │   ├── pricing/                 # Pricing & Brokerage Info
+        │   │   ├── Brokerage.js
+        │   │   ├── Hero.js
+        │   │   └── PricingPage.js
+        │   ├── products/                # Platform Offerings
+        │   │   ├── Hero.js
+        │   │   ├── LeftSection.js
+        │   │   ├── ProductsPage.js
+        │   │   ├── RightSection.js
+        │   │   └── Universe.js
+        │   ├── signup/                  # Authentication (Registration)
+        │   │   └── Signup.js
+        │   ├── support/                 # Ticketing & Help Center
+        │   │   ├── CreateTicket.js
+        │   │   ├── FAQ.js
+        │   │   ├── Hero.js
+        │   │   └── SupportPage.js
+        │   ├── Footer.js                # Global Footer
+        │   ├── Navbar.js                # Global Navigation
+        │   ├── NotFound.js              # 404 Error View
+        │   └── OpenAccount.js           # CTA Component
+        ├── PrivateRoute.js              # Auth Guard Wrapper
+        ├── api.js                       # Axios Configs
+        ├── index.css                    # Global Styles
+        └── index.js                     # React DOM Entry
 ```
 
 ---
@@ -151,21 +228,137 @@ synthesis/
 
 ```
 
-### Orders Schema (`OrdersModel.js`)
+Here is the complete, fully expanded **Data Models** section for your `README.md`. This includes every exact schema you shared from your backend folder, plus the separated schema architecture you used for the core financial modules [cite: Screenshot 2026-07-10 at 8.39.50 AM.png, Screenshot 2026-07-10 at 8.39.52 AM.png, Screenshot 2026-07-10 at 8.39.56 AM.png, Screenshot 2026-07-10 at 8.39.59 AM.png, Screenshot 2026-07-10 at 8.40.01 AM.png, Screenshot 2026-07-10 at 8.40.05 AM.png, Screenshot 2026-07-10 at 8.40.09 AM.png].
+
+Copy and paste this to replace the current Data Models section in your README:
+
+## Data Models
+
+The backend utilizes **Mongoose** for strict NoSQL data validation. The architecture splits core application data directly into the `model/` directory, while heavy financial transactional structures are isolated into a dedicated `schemas/` folder.
+
+### Core Entity Models
+
+#### 1. User Schema (`UserModel.js`)
+Handles secure authentication credentials and user profile initialization.
+```javascript
+const userSchema = new mongoose.Schema({
+  email:     { type: String, required: [true, "Email is required"], unique: true },
+  username:  { type: String, required: [true, "Username is required"] },
+  password:  { type: String, required: [true, "Password is required"] },
+  createdAt: { type: Date, default: Date.now },
+});
+
+```
+
+#### 2. Alpha Intelligence Schema (`IntelModel.js`)
+
+Stores parsed financial news articles and pre-computed NLP sentiment tags.
 
 ```javascript
-{
-  name:          { type: String },
-  qty:           { type: Number },
-  price:         { type: Number },
-  mode:          { type: String } // BUY or SELL
-}
+const IntelSchema = new mongoose.Schema({
+  title:     String,
+  snippet:   String,
+  url:       String,
+  source:    String,
+  sentiment: { type: String, default: "NEUTRAL" },
+  date:      { type: Date, default: Date.now }
+});
+
+```
+
+#### 3. Support Ticket Schema (`TicketModel.js`)
+
+Manages user-submitted platform support requests.
+
+```javascript
+const ticketSchema = new mongoose.Schema({
+  subject:     { type: String, required: true },
+  description: { type: String, required: true },
+  status:      { type: String, default: "Open" },
+  createdAt:   { type: Date, default: Date.now }
+});
+
+```
+
+#### 4. Market Watchlist Schema (`WatchlistModel.js`)
+
+Tracks volatile market assets for rapid visual monitoring on the dashboard.
+
+```javascript
+const WatchlistSchema = new Schema({
+  name:      String,
+  price:     Number,
+  percent:   String,
+  isDown:    Boolean,
+});
 
 ```
 
 ---
 
-## API Routes
+### Transactional Schemas (Modularized)
+
+To keep the model definitions clean, the heavy financial ledgers are decoupled into the `schemas/` directory and imported into their respective model files (`HoldingsModel.js`, `OrdersModel.js`, `PositionsModel.js`).
+
+#### 5. Orders Ledger (`schemas/OrdersSchema.js`)
+
+Immutable audit log recording every execution event.
+
+```javascript
+const OrdersSchema = new Schema({
+  name:      String,
+  qty:       Number,
+  price:     Number,
+  mode:      String, // 'BUY' or 'SELL'
+});
+
+```
+
+#### 6. Active Holdings (`schemas/HoldingsSchema.js`)
+
+Represents the user's current long-term active inventory.
+
+```javascript
+const HoldingsSchema = new Schema({
+  name:      String,
+  qty:       Number,
+  avg:       Number,
+  price:     Number,
+  net:       String,
+  day:       String,
+});
+
+```
+
+#### 7. Volatile Positions (`schemas/PositionsSchema.js`)
+
+Tracks short-term intraday trades and daily market momentum.
+
+```javascript
+const PositionsSchema = new Schema({
+  name:      String,
+  qty:       Number,
+  avg:       Number,
+  price:     Number,
+  net:       String,
+  day:       String,
+  isLoss:    Boolean,
+});
+
+```
+
+```
+
+```
+
+---
+
+## Application Routing Architecture
+
+The platform's routing is strictly decoupled into two layers: the **Backend API Endpoints** (handling database transactions) and the **Frontend Client Routes** (handling React UI navigation).
+
+### 1. Backend API Routes (Node.js / Express)
+*These endpoints handle data mutations, aggregations, and communicate directly with MongoDB.*
 
 | Method | Endpoint | Description | Auth Required |
 | --- | --- | --- | --- |
@@ -174,6 +367,20 @@ synthesis/
 | `GET` | `/allHoldings` | Fetch active inventory for the authenticated user | Yes |
 | `GET` | `/allPositions` | Fetch daily/live volatile positions | Yes |
 | `POST` | `/newOrder` | Execute atomic trade transaction | Yes |
+
+### 2. Frontend Client Routes (React Router)
+*These paths control the visual UI layers across the Landing Page and the secure Dashboard.*
+
+| Path | App Interface | Renders Component | Route Protection |
+| --- | --- | --- | --- |
+| `/` | Landing Page | `HomePage.js` | Public |
+| `/about` | Landing Page | `AboutPage.js` | Public |
+| `/products` | Landing Page | `ProductsPage.js` | Public |
+| `/pricing` | Landing Page | `PricingPage.js` | Public |
+| `/support` | Landing Page | `SupportPage.js` | Public |
+| `/signup` | Landing Page | `Signup.js` | Public |
+| `/login` | Landing Page | `Login.js` | Public |
+| `/dashboard` | Dashboard | `Dashboard.js` | **Protected (JWT Required)** |
 
 ---
 
