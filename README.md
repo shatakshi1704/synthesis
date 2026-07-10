@@ -215,22 +215,6 @@ synthesis/
 
 ---
 
-## Data Models
-
-### User Schema (`UserModel.js`)
-
-```javascript
-{
-  email:         { type: String, required: true, unique: true },
-  password:      { type: String, required: true },
-  createdAt:     { type: Date, default: new Date() }
-}
-
-```
-
-Here is the complete, fully expanded **Data Models** section for your `README.md`. This includes every exact schema you shared from your backend folder, plus the separated schema architecture you used for the core financial modules [cite: Screenshot 2026-07-10 at 8.39.50 AM.png, Screenshot 2026-07-10 at 8.39.52 AM.png, Screenshot 2026-07-10 at 8.39.56 AM.png, Screenshot 2026-07-10 at 8.39.59 AM.png, Screenshot 2026-07-10 at 8.40.01 AM.png, Screenshot 2026-07-10 at 8.40.05 AM.png, Screenshot 2026-07-10 at 8.40.09 AM.png].
-
-Copy and paste this to replace the current Data Models section in your README:
 
 ## Data Models
 
