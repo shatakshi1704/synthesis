@@ -149,7 +149,7 @@ app.post("/api/assistant", async (req, res) => {
       Latest Market Intel Signals: ${JSON.stringify(latestIntel)}
     `;
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
     const prompt = `You are an elite, highly intelligent financial and platform AI assistant for Synthesis. Give expert, precise, clear, and direct answers regarding stock searching, buying/selling mechanics, market psychology, and portfolio allocation based on the context provided. Keep it concise and professional.\n\nContext:\n${context}\n\nUser Question: ${message}`;
 
     const result = await model.generateContent(prompt);
