@@ -122,31 +122,49 @@ app.get("/allWatchlist", async (req, res) => {
   }
 });
 
-app.post("/api/assistant", verifyUser, async (req, res) => {
+// Ensure CORS is set up at the top of your server file (before routes)
+const cors = require('cors');
+app.use(cors({
+  origin: [
+    "https://synthesis-peach.vercel.app", 
+    "https://synthesis-mmdv.vercel.app", 
+    "http://localhost:3000", 
+    "http://localhost:5173"
+  ],
+  credentials: true
+}));
+
+// The Assistant API Endpoint
+app.post("/api/assistant", async (req, res) => {
   try {
     const { message } = req.body;
     
-    // User ka balance aur holdings nikal lo taaki AI ko context mile
-    const user = await UserModel.findById(req.userId);
-    const holdings = await HoldingsModel.find({ user: req.userId });
+    if (!message) {
+      return res.status(400).json({ reply: "Message content cannot be empty." });
+    }
+
+    // Optional: Extract user identification from cookies or headers if available
+    // const userId = req.cookies?.userId || req.headers?.userid;
+    
+    // Fetch context from database safely with fallbacks
+    // const user = userId ? await UserModel.findById(userId) : null;
+    // const holdings = userId ? await HoldingsModel.find({ user: userId }) : [];
     const latestIntel = await IntelModel.find({}).sort({ date: -1 }).limit(3);
 
     const context = `
-      User Balance: ₹${user?.balance || 0}
-      User Holdings: ${JSON.stringify(holdings)}
       Latest Market Intel: ${JSON.stringify(latestIntel)}
     `;
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    const prompt = `You are a helpful assistant for a portfolio and trading website called Synthesis. Use the following context about the user to answer their question politely and accurately in a conversational tone.\n\nContext:\n${context}\n\nUser Question: ${message}`;
+    const prompt = `You are a helpful assistant for a portfolio and trading website called Synthesis. Use the following context about the market to answer the user's question politely and accurately in a concise conversational tone.\n\nContext:\n${context}\n\nUser Question: ${message}`;
 
     const result = await model.generateContent(prompt);
     const reply = result.response.text();
 
     res.json({ reply });
   } catch (error) {
-    console.error("Assistant Error:", error);
-    res.status(500).json({ message: "Error generating response" });
+    console.error("Assistant Backend Error:", error);
+    res.status(500).json({ reply: "An internal server error occurred while generating the response." });
   }
 });
 
