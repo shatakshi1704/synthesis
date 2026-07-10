@@ -1,5 +1,5 @@
 import React from "react";
-import ProtectedRoute from "./ProtectedRoute"; // 🔥 Import kiya
+import ProtectedRoute from "./ProtectedRoute";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import "./index.css";
@@ -12,8 +12,6 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/dashboard/*" element={<Home />} />
-        
-        {/* 🔥 Protected Route Wrap kar diya */}
         <Route 
           path="/portfolio" 
           element={

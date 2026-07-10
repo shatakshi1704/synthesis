@@ -11,7 +11,6 @@ const TopBar = () => {
       padding: "0 20px", 
       borderBottom: "1px solid #eee" 
     }}>
-      {/* gap ko 20px se badhakar 40px ya jitna chahiye utna karo */}
       <div style={{ display: "flex", gap: "50px", alignItems: "center" }}>
         <div style={{ display: "flex", gap: "8px" }}>
           <span style={{ fontWeight: "bold" }}>NIFTY 50</span>

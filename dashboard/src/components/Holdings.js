@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import API from "../api"; // 🔥 API instance import kiya
+import API from "../api";
 import { VerticalGraph } from "./VerticalGraph";
 
 const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);
 
   useEffect(() => {
-    // 🔥 FIX: Ab axios.get ki jagah API.get use kar rahe hain
-    // Isse baseURL aur withCredentials automatically mil jayenge
     API.get("/allHoldings")
       .then((res) => {
         setAllHoldings(res.data);

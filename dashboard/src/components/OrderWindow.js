@@ -25,7 +25,6 @@ const OrderWindow = () => {
       closeBuyWindow();
       window.location.reload(); 
     } catch (err) {
-      // ✅ Ab generic error ki jagah backend ka actual reason dikhega
       if (err.response && err.response.data && err.response.data.message) {
         alert(err.response.data.message);
       } else {

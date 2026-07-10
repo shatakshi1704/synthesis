@@ -10,8 +10,7 @@ const MyPortfolio = () => {
   const navigate = useNavigate();
   const [data, setData] = useState({ holdings: [], orders: [] });
   const [username, setUsername] = useState("USER");
-  
-  // AI Intel states
+
   const [intelData, setIntelData] = useState([]);
   const [loadingIntel, setLoadingIntel] = useState(true);
   
@@ -32,12 +31,10 @@ const MyPortfolio = () => {
     fetchData();
   }, []);
 
-  // Alpha Intel Fetch
   useEffect(() => {
     const fetchIntel = async () => {
       try {
         const response = await axios.get("https://synthesis-backend.onrender.com/api/alpha-intel");
-        // 🔥 Changed slice to 15
         setIntelData(response.data.slice(0, 15)); 
         setLoadingIntel(false);
       } catch (error) {
@@ -135,7 +132,6 @@ const MyPortfolio = () => {
               <span style={{ fontSize: '10px', color: '#ff4757', fontWeight: 'bold' }}>● LIVE AI</span>
             </div>
             
-            {/* 🔥 Added maxHeight and overflowY for scrolling 15 items cleanly */}
             <div className="news-list" style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '15px', maxHeight: '500px', overflowY: 'auto', paddingRight: '5px' }}>
               {loadingIntel ? (
                 <p style={{ fontSize: '12px', color: '#94A3B8' }}>Fetching live AI insights...</p>
@@ -159,7 +155,6 @@ const MyPortfolio = () => {
                       <div className="news-accent" style={{ width: '4px', minHeight: '100%', backgroundColor: accentColor, borderRadius: '2px' }}></div>
                       <div style={{ flex: 1, paddingBottom: '10px', borderBottom: '1px solid #f1f5f9' }}>
                         
-                        {/* 🔥 Added proper Sentiment Badge next to the title */}
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '10px', marginBottom: '6px' }}>
                           <h5 style={{ margin: '0', fontSize: '13px', lineHeight: '1.4' }}>
                             <a href={intel.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#1E293B' }}>
@@ -198,10 +193,8 @@ const MyPortfolio = () => {
         </div>
 
         <div className="secondary-column">
-          {/* Core Positions Panel */}
           <div className="clean-panel">
             <h4>Core Positions</h4>
-            {/* 🔥 Added maxHeight and scroll to Holdings */}
             <div className="holdings-list" style={{ maxHeight: '250px', overflowY: 'auto', paddingRight: '8px' }}>
               {data.holdings.length > 0 ? data.holdings.map((h, i) => (
                 <div key={i} className="holding-list-item">
@@ -212,10 +205,8 @@ const MyPortfolio = () => {
             </div>
           </div>
 
-          {/* Recent Orders Panel */}
           <div className="clean-panel">
             <h4>Recent Orders</h4>
-            {/* 🔥 Added maxHeight and scroll to Orders (Height set to match left column perfectly) */}
             <div className="orders-list" style={{ maxHeight: '420px', overflowY: 'auto', paddingRight: '8px' }}>
               {data.orders.length > 0 ? data.orders.map((o, i) => (
                 <div key={i} className="order-list-item">

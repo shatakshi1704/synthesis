@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import API from "../api"; // 🔥 Import API instance from api.js
+import API from "../api";
 
 const Menu = () => {
   const [username, setUsername] = useState("USER");
@@ -8,7 +8,6 @@ const Menu = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        // 🔥 Use API instance instead of axios
         const res = await API.get("/user/profile"); 
         if (res.data.username) setUsername(res.data.username.toUpperCase());
       } catch (err) { console.error("Profile fetch error:", err); }
@@ -29,7 +28,6 @@ const Menu = () => {
     <div style={styles.navbar}>
 
       <div style={styles.rightSection}>
-        {/* 🔥 Use your live Landing Page URL instead of localhost */}
         <a href="https://synthesis-mmdv.vercel.app/" style={styles.link}>Home</a>
         <Link to="/portfolio" style={styles.link}>Portfolio</Link>
         

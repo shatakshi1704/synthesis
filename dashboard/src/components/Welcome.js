@@ -17,8 +17,6 @@ const Welcome = () => {
   return (
     <div style={{ padding: "40px", color: "#541A1A" }}>
       <h2 style={{ color: "#810B38", marginBottom: "25px" }}>Welcome. Let's read some facts:</h2>
-      
-      {/* 2 columns per row layout */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", marginBottom: "40px" }}>
         {facts.map((fact, index) => (
           <div key={index} style={{ border: "1px solid #F1E2D1", padding: "20px", borderRadius: "8px" }}>

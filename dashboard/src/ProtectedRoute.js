@@ -8,7 +8,6 @@ const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        // Backend se user profile mangwao
         await API.get("/user/profile");
         setIsAuthenticated(true);
       } catch (err) {
@@ -18,9 +17,8 @@ const ProtectedRoute = ({ children }) => {
     checkAuth();
   }, []);
 
-  if (isAuthenticated === null) return <div>Loading...</div>; // Checking...
+  if (isAuthenticated === null) return <div>Loading...</div>; 
   
-  // Agar login nahi hai, login page par bhej do
   return isAuthenticated ? children : <Navigate to="/login" />;
 };
 

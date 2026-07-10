@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import API from "../api"; // 🔥 Import the API instance
+import API from "../api";
 
 const Positions = () => {
   const [positions, setPositions] = useState([]);
 
   useEffect(() => {
-    // 🔥 Ab axios ki jagah API.get use karenge
     API.get("/allPositions")
       .then((res) => {
         setPositions(res.data);

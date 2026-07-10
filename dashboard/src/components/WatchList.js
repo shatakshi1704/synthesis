@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import API from "../api"; // 🔥 Import production-ready API instance
+import API from "../api"; 
 import GeneralContext from "./GeneralContext";
 import { Refresh, KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import { DoughnutChart } from "./DoughnoutChart";
@@ -12,7 +12,6 @@ const WatchList = () => {
 
   const fetchData = async () => {
     try {
-      // 🔥 Using API instance
       const res = await API.get("/allWatchlist");
       setAllStocks(res.data);
     } catch (err) { console.error("Watchlist Fetch Error:", err); }

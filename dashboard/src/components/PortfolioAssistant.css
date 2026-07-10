@@ -26,7 +26,7 @@
 .assistant-chat-box {
   width: 360px;
   height: 480px;
-  background: #F1E2D1; /* Lightened background */
+  background: #F1E2D1; 
   border-radius: 12px;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25);
   display: flex;
@@ -73,7 +73,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  background: #FAF6F0; /* Soft off-white message board */
+  background: #FAF6F0;
 }
 
 .message {

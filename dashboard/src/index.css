@@ -52,11 +52,11 @@ code {
 }
 
 .btn-green {
-  background: #810B38; /* Synthesis Burgundy */
+  background: #810B38; 
 }
 
 .btn-blue {
-  background: #541A1A; /* Synthesis Dark Accent */
+  background: #541A1A; 
 }
 
 .row {
@@ -118,7 +118,7 @@ code {
 }
 
 .colored {
-  color: #810B38; /* Synthesis Burgundy */
+  color: #810B38;
 }
 
 .table hr {
@@ -138,13 +138,12 @@ code {
   color: #c9c9c9;
 }
 
-/* sudo selectors */
 .btn-blue:hover {
-  background: #3d1313; /* Darker Synthesis shade */
+  background: #3d1313; 
 }
 
 .btn-green:hover {
-  background: #63082a; /* Darker Synthesis shade */
+  background: #63082a; 
 }
 
 .title {
@@ -208,7 +207,7 @@ code {
 }
 
 .order-table td.loss {
-  color: #810B38; /* Synthesis Burgundy */
+  color: #810B38; 
 }
 
 .row {
@@ -228,7 +227,6 @@ code {
   font-weight: 300;
 }
 
-/* p1 */
 
 .col h5 span {
   font-weight: 300;
@@ -243,10 +241,9 @@ code {
 }
 
 .row .col:last-child h5 {
-  color: #810B38; /* Synthesis Burgundy */
+  color: #810B38; 
 }
 
-/* sudo selector */
 .item:hover {
   cursor: pointer;
 }
@@ -289,7 +286,7 @@ code {
 }
 
 .menu.selected {
-  color: #810B38; /* Synthesis Burgundy */
+  color: #810B38; 
 }
 
 hr {
@@ -311,12 +308,12 @@ hr {
   position: relative;
   font-size: 0.7rem;
   font-weight: 400;
-  color: #810B38; /* Synthesis Burgundy */
+  color: #810B38;
   justify-content: center;
   align-items: center;
   border-radius: 100%;
   display: flex;
-  background: #F1E2D1; /* Synthesis Cream */
+  background: #F1E2D1;
   margin-right: 8px;
 }
 
@@ -325,10 +322,9 @@ hr {
   font-weight: 300;
 }
 
-/* sudo selectors */
 
 .menu:hover {
-  color: #810B38; /* Synthesis Burgundy */
+  color: #810B38; 
 }
 
 .profile:hover {
@@ -337,7 +333,7 @@ hr {
 
 .profile:hover .username {
   cursor: pointer;
-  color: #541A1A; /* Synthesis Dark Accent */
+  color: #541A1A; 
 }
 
 .orders {
@@ -367,7 +363,7 @@ hr {
 
 .btn {
   text-decoration: none;
-  background: #810B38; /* Synthesis Burgundy */
+  background: #810B38; 
   padding: 10px 20px;
   border-radius: 2px;
   color: #fff;
@@ -375,7 +371,7 @@ hr {
 }
 
 .btn:hover {
-  background: #541A1A; /* Synthesis Dark Accent */
+  background: #541A1A; 
 }
 
 .title {
@@ -403,16 +399,14 @@ hr {
   font-size: 0.8rem;
 }
 
-/*p2*/
-
 .order-table tr th:first-child,
 .order-table tr td:first-child {
   text-align: left;
 }
 
 .order-table tr td:first-child p {
-    background: #F1E2D1; /* Synthesis Cream */
-    color: #810B38; /* Synthesis Burgundy */
+    background: #F1E2D1; 
+    color: #810B38; 
     width: 50%;
     text-align: center;
     border-radius: 2px;
@@ -427,7 +421,7 @@ hr {
   text-align: right;
   font-weight: 400;
   font-size: 0.9rem;
-  color: #541A1A; /* Synthesis Dark Accent */
+  color: #541A1A; 
 }
 
 .align-left {
@@ -439,7 +433,7 @@ hr {
 }
 
 .order-table td.loss {
-  color: #810B38; /* Synthesis Burgundy */
+  color: #810B38; 
 }
 
 .row {
@@ -455,7 +449,7 @@ hr {
 
 .col h5 {
   font-size: 1.8rem;
-  color: #541A1A; /* Synthesis Dark Accent */
+  color: #541A1A; 
   font-weight: 300;
 }
 
@@ -475,7 +469,6 @@ hr {
   color: rgb(72, 194, 55);
 }
 
-/* sudo selector */
 .item:hover {
   cursor: pointer;
 }
@@ -483,13 +476,13 @@ hr {
 .username h6 {
   font-size: 1.5rem;
   font-weight: 400;
-  color: #541A1A; /* Synthesis Dark Accent */
+  color: #541A1A; 
   margin-bottom: 20px;
 }
 
 .divider {
   border: none;
-  background: #F1E2D1; /* Synthesis Cream */
+  background: #F1E2D1;
   height: 1px;
   margin: 20px 0;
   margin-bottom: 5%;
@@ -513,7 +506,7 @@ hr {
 
 .section-icon {
   transform: scale(0.8);
-  color: #810B38; /* Synthesis Burgundy */
+  color: #810B38;
   padding: 0;
   margin: 0;
   margin-right: 10px;
@@ -529,7 +522,7 @@ hr {
 .data .first h3 {
   font-size: 2.5rem;
   font-weight: 300;
-  color: #541A1A; /* Synthesis Dark Accent */
+  color: #541A1A; 
 }
 
 .data .first p {
@@ -547,7 +540,7 @@ hr {
 }
 
 .data hr {
-  border-left: 0.6px solid #F1E2D1; /* Synthesis Cream */
+  border-left: 0.6px solid #F1E2D1; 
   height: 70px;
 }
 
@@ -562,7 +555,7 @@ hr {
   display: inline;
   margin-left: 5%;
   font-size: 0.9rem;
-  color: #541A1A; /* Synthesis Dark Accent */
+  color: #541A1A; 
 }
 
 .section hr {
@@ -583,7 +576,7 @@ hr {
   flex-basis: 32%;
   height: 100%;
   padding: 10px 20px;
-  border-right: 1px solid #F1E2D1; /* Synthesis Cream */
+  border-right: 1px solid #F1E2D1; 
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -614,14 +607,14 @@ hr {
   font-size: 0.8rem;
   font-weight: 500;
   text-transform: uppercase;
-  color: #541A1A; /* Synthesis Dark Accent */
+  color: #541A1A;
   white-space: nowrap;
 }
 
 .index-points {
   font-size: 0.8rem;
   font-weight: 500;
-  color: #810B38; /* Synthesis Burgundy */
+  color: #810B38; 
 }
 
 .percent {
@@ -630,7 +623,6 @@ hr {
   color: rgb(146, 146, 146);
 }
 
-/* sudo selectors */
 .index:hover {
   cursor: pointer;
 }
@@ -644,7 +636,6 @@ hr {
   position: relative;
 }
 
-/*p3*/
 
 .search-container {
   display: flex;
@@ -660,8 +651,8 @@ hr {
   padding: 15px 20px;
   font-size: 0.9rem;
   font-weight: 400;
-  color: #541A1A; /* Synthesis Dark Accent */
-  border-bottom: 0.8px solid #F1E2D1; /* Synthesis Cream */
+  color: #541A1A; 
+  border-bottom: 0.8px solid #F1E2D1; 
 }
 
 .counts {
@@ -678,7 +669,7 @@ hr {
 }
 
 .list li {
-  border-bottom: 0.8px solid #F1E2D1; /* Synthesis Cream */
+  border-bottom: 0.8px solid #F1E2D1; 
   padding: 12px 10px 12px 14px;
   position: relative;
 }
@@ -708,13 +699,13 @@ hr {
 }
 
 .item-info span:nth-child(2) {
-  color: #810B38; /* Synthesis Burgundy */
+  color: #810B38;
   margin-right: 12px;
   flex: 2;
 }
 
 .item-info span:nth-child(3) {
-  color: #810B38; /* Synthesis Burgundy */
+  color: #810B38; 
   flex: 1;
 }
 
@@ -739,7 +730,7 @@ hr {
 }
 
 .buy {
-  background-color: #810B38 !important; /* Synthesis Burgundy */
+  background-color: #810B38 !important; 
   color: #fff;
   font-weight: 400;
   font-size: 0.8rem;
@@ -747,7 +738,7 @@ hr {
 }
 
 .sell {
-  background-color: #541A1A !important; /* Synthesis Dark Accent */
+  background-color: #541A1A !important; 
   color: #fff;
   font-weight: 400;
   font-size: 0.8rem;
@@ -761,7 +752,7 @@ hr {
 
 .icon {
   transform: scale(0.7);
-  color: #541A1A; /* Synthesis Dark Accent */
+  color: #541A1A; 
 }
 
 .watchlist-number {
@@ -775,7 +766,7 @@ hr {
   bottom: 1px;
   padding: 20px 20px 20px 0;
   left: 0;
-  border: 1px solid #F1E2D1; /* Synthesis Cream */
+  border: 1px solid #F1E2D1;
   z-index: 5;
   background: #fff;
 }
@@ -787,15 +778,15 @@ hr {
 .watchlist-number ul li {
   display: inline-block;
   padding: 10px 20px;
-  border-right: 1px solid #F1E2D1; /* Synthesis Cream */
+  border-right: 1px solid #F1E2D1; 
 }
 
 .watchlist-number ul li:nth-child(1) {
-  color: #810B38; /* Synthesis Burgundy */
+  color: #810B38; 
 }
 
 .down {
-  color: #810B38; /* Synthesis Burgundy */
+  color: #810B38; 
 }
 
 .up {
@@ -804,17 +795,16 @@ hr {
 
 .settings {
   transform: scale(0.8);
-  color: #541A1A; /* Synthesis Dark Accent */
+  color: #541A1A; 
 }
 
-/* sudo selectors */
 .search:focus {
   outline: none;
 }
 
 .list li:hover {
   cursor: move;
-  background-color: #FDF9F5; /* Synthesis Cream Tint */
+  background-color: #FDF9F5; 
 }
 
 .list li:hover > .actions {
@@ -822,7 +812,6 @@ hr {
   cursor: move;
 }
 
-/* TODO */
 .list li::before {
   content: "";
   background: transparent;
@@ -834,9 +823,9 @@ hr {
 }
 
 .watchlist-number ul li:hover {
-  color: #810B38; /* Synthesis Burgundy */
+  color: #810B38; 
   cursor: pointer;
-  background: #FDF9F5; /* Synthesis Cream Tint */
+  background: #FDF9F5; 
 }
 
 .settings:hover {
@@ -847,7 +836,6 @@ hr {
   background-color: rgb(212, 212, 212);
 }
 
-/* Background Overlay */
 .buy-window-overlay {
   position: fixed;
   top: 0;
@@ -861,7 +849,6 @@ hr {
   z-index: 1000;
 }
 
-/* Card Styling */
 .buy-window {
   background: white;
   padding: 25px;
@@ -885,12 +872,12 @@ hr {
 }
 
 .actions .buy {
-    background-color: #810B38; /* Burgundy */
+    background-color: #810B38;
     color: white;
 }
 
 .actions .sell {
-    background-color: #fa764e; /* Orange-Red */
+    background-color: #fa764e;
     color: white;
 }
 
@@ -901,28 +888,24 @@ hr {
 
 
 @media print {
-  /* Print layout ko clean karo */
   .no-print, .header-actions, .time-filter { display: none !important; }
   
   .dashboard-layout { display: block !important; width: 100% !important; }
 
-  /* Grid ko stack mein badlo */
   .charts-grid {
     display: block !important;
     width: 100% !important;
   }
 
-  /* HAR CHART KO SEPARATE BOX DO */
   .chart-box {
     display: block !important;
     width: 100% !important;
-    height: 250px !important;    /* Thoda height badhaya */
-    margin-bottom: 50px !important; /* Inke beech 50px ka gap */
+    height: 250px !important;  
+    margin-bottom: 50px !important; 
     page-break-inside: avoid !important;
-    border-bottom: 1px solid #eee; /* Visual separation */
+    border-bottom: 1px solid #eee;
   }
 
-  /* Recharts ko force karo ki container fill kare */
   .recharts-wrapper {
     display: block !important;
     width: 100% !important;
