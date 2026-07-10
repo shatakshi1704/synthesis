@@ -443,6 +443,42 @@ The application utilizes a decoupled deployment architecture:
 
 ## Screenshots
 
+<p align="center">
+  <!-- First 13 Images (Full Width) -->
+  <img src="frontend/public/media/images/1.png" alt="Dashboard View 1" width="100%">
+  <br><br>
+  <img src="frontend/public/media/images/2.png" alt="Dashboard View 2" width="100%">
+  <br><br>
+  <img src="frontend/public/media/images/3.png" alt="Dashboard View 3" width="100%">
+  <br><br>
+  <img src="frontend/public/media/images/4.png" alt="Dashboard View 4" width="100%">
+  <br><br>
+  <img src="frontend/public/media/images/5.png" alt="Dashboard View 5" width="100%">
+  <br><br>
+  <img src="frontend/public/media/images/6.png" alt="Dashboard View 6" width="100%">
+  <br><br>
+  <img src="frontend/public/media/images/7.png" alt="Dashboard View 7" width="100%">
+  <br><br>
+  <img src="frontend/public/media/images/8.png" alt="Dashboard View 8" width="100%">
+  <br><br>
+  <img src="frontend/public/media/images/9.png" alt="Dashboard View 9" width="100%">
+  <br><br>
+  <img src="frontend/public/media/images/10.png" alt="Dashboard View 10" width="100%">
+  <br><br>
+  <img src="frontend/public/media/images/11.png" alt="Dashboard View 11" width="100%">
+  <br><br>
+  <img src="frontend/public/media/images/12.png" alt="Dashboard View 12" width="100%">
+  <br><br>
+  <img src="frontend/public/media/images/13.png" alt="Dashboard View 13" width="100%">
+  <br><br>
+
+  <!-- Last 3 Images (Small / 3-Column Flex Layout) -->
+  <img src="frontend/public/media/images/14.png" alt="Small View 1" width="32%">
+  &nbsp;
+  <img src="frontend/public/media/images/15.png" alt="Small View 2" width="32%">
+  &nbsp;
+  <img src="frontend/public/media/images/16.png" alt="Small View 3" width="32%">
+</p>
 ---
 
 ## Author
