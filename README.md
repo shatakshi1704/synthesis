@@ -331,10 +331,6 @@ const PositionsSchema = new Schema({
 
 ```
 
-```
-
-```
-
 ---
 
 ## Application Routing Architecture
