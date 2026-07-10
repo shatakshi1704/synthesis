@@ -24,6 +24,15 @@ function ProductsPage() {
         learnMore="#"
       />
 
+      // Add this below your Insights Dashboard RightSection in ProductsPage.jsx
+<LeftSection
+  imageURL="media/images/extension.png" // Screenshot of your extension/popup interface
+  productName="Synthesis Extension"
+  productDesription="Keep a pulse on the markets without leaving your current tab. Execute quick trades and view live asset alerts right from your browser toolbar."
+  tryDemo="#"
+  learnMore="#"
+/>
+
       <div className="text-center mt-5 mb-5">
         <h3>Built by engineers, for traders.</h3>
         <p className="text-muted">We are constantly pushing updates to our core infrastructure.</p>
