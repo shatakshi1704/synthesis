@@ -32,7 +32,7 @@ const DashboardWrapper = () => {
         {isBuyWindowOpen && <OrderWindow />}
         
       </div>
-      <PortfolioAssistant />
+      {/* <PortfolioAssistant /> */}
     </div>
   );
 };

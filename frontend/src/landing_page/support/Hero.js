@@ -7,8 +7,6 @@ function Hero() {
         <h1 className="display-5 fw-bold">Support Center</h1>
         <p className="lead opacity-75">We are constantly improving. Let us know how we're doing.</p>
         <div className="mt-4">
-          <a href="#" className="text-white me-4">Check System Status</a>
-          <a href="#" className="text-white">Read Documentation</a>
         </div>
       </div>
     </section>

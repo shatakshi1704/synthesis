@@ -16,6 +16,7 @@ const { OrdersModel } = require("./model/OrdersModel");
 const UserModel = require("./model/UserModel");
 const { WatchlistModel } = require("./model/WatchlistModel");
 const IntelModel = require("./model/IntelModel");
+const TicketModel = require('./models/TicketModel');
 
 // AI INITIALIZATION 🧠
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -119,6 +120,29 @@ app.get("/allWatchlist", async (req, res) => {
     res.json(stocksWithLivePrices);
   } catch (error) { 
     res.status(500).json({ message: "Server Error" }); 
+  }
+});
+
+app.post("/api/tickets", async (req, res) => {
+  try {
+    const { subject, description } = req.body;
+    
+    if (!subject || !description) {
+      return res.status(400).json({ error: "Subject and description are required." });
+    }
+
+    const newTicket = new TicketModel({
+      subject,
+      description,
+      status: "Open",
+      createdAt: new Date()
+    });
+
+    await newTicket.save();
+    res.status(201).json({ message: "Ticket submitted successfully!", ticket: newTicket });
+  } catch (error) {
+    console.error("Ticket Submission Error:", error);
+    res.status(500).json({ error: "Internal server error while saving the ticket." });
   }
 });
 
